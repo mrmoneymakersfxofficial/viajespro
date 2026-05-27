@@ -341,20 +341,28 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-background/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-background/50">{t(footerContent.copyright)}</p>
-          <a
-            href={siteConfig.provider.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-background/50 hover:text-emerald-400 transition-colors group"
-          >
-            {language === "es" ? "Dise&ntilde;o y desarrollo por" : "Design and development by"}{" "}
-            <span className="font-semibold text-emerald-400 group-hover:text-emerald-300 transition-colors">
-              {siteConfig.provider.name}
-            </span>
-          </a>
+        {/* Bottom Bar - Mobile First Responsive */}
+        <div className="mt-12 border-t border-background/10 pt-8">
+          <div className="flex flex-col items-center justify-between gap-4 text-center sm:text-left sm:flex-row">
+            {/* Left: Copyright */}
+            <p className="text-xs text-background/50">
+              &copy; {new Date().getFullYear()} {language === "es" ? "Viajes PRO" : "Viajes PRO"}. {language === "es" ? "Todos los derechos reservados." : "All rights reserved."}
+            </p>
+            {/* Right: Developer credit */}
+            <p>
+              <span className="text-xs text-background/50">
+                {language === "es" ? "Desarrollado por" : "Developed by"}{" "}
+              </span>
+              <a
+                href={siteConfig.provider.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-emerald-400 hover:text-emerald-300 font-semibold underline underline-offset-4 transition-colors"
+              >
+                {siteConfig.provider.name}
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
