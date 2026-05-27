@@ -8,6 +8,7 @@ import { destinations, buildWhatsAppUrl } from "@/data/content";
 import { useLanguage } from "@/context/language-context";
 import { useFavorites } from "@/context/favorites-context";
 import { MessageCircle, Clock, X, ChevronLeft, ChevronRight, ZoomIn, Heart } from "lucide-react";
+import { motion as mMotion, AnimatePresence as APresence } from "framer-motion";
 import gsap from "gsap";
 
 // ─── Lightbox ──────────────────────────────────────────────
@@ -103,20 +104,43 @@ function DestinationCard({ dest, language, index, onOpenLightbox }: {
       <div className="relative aspect-[4/3] w-full overflow-hidden cursor-zoom-in" onClick={() => onOpenLightbox(dest.id)}>
         <Image src={dest.image} alt={t(dest.title)} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" priority={index === 0} />
         <div className="absolute inset-0 bg-gradient-to-t dark:from-[#121212] from-white via-black/20 to-transparent" />
-        {/* Badges */}
+        {/* Badges — Glassmorphism Immersive */}
         <div className="absolute inset-x-0 top-0 p-2.5 sm:p-4 flex justify-between items-start pointer-events-none">
-          <span className="border dark:border-white/[0.1] border-zinc-300 dark:bg-[#0a0a0a]/80 bg-white/80 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[11px] font-mono tracking-wider dark:text-zinc-300 text-zinc-700 flex items-center gap-1 sm:gap-1.5">
+          <span className="bg-zinc-950/40 backdrop-blur-md border border-white/[0.08] px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[11px] font-mono tracking-wider text-zinc-300 flex items-center gap-1 sm:gap-1.5">
             <Clock className="w-2.5 h-2.5 sm:w-3 sm:h-3" />{dest.duration}
           </span>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
+            {/* Floating Heart — No background */}
             <button
               onClick={(e) => { e.stopPropagation(); toggleFavorite(dest.id); }}
-              className="border border-white/10 dark:bg-[#0a0a0a]/80 bg-white/80 backdrop-blur-md p-1.5 sm:p-2 hover:border-gold-base/30 transition-colors pointer-events-auto"
+              className="bg-transparent border-none p-1.5 sm:p-2 transition-all duration-300 pointer-events-auto"
               aria-label="Toggle favorite"
             >
-              <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-colors ${fav ? "fill-gold-base text-gold-base" : "text-zinc-400"}`} />
+              <APresence mode="wait">
+                <mMotion.span
+                  key={fav ? "filled" : "outline"}
+                  initial={{ scale: 0.6, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 1.3, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className={`block drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] ${
+                    fav
+                      ? "text-[#d4af37]"
+                      : "text-zinc-300 hover:text-white"
+                  }`}
+                >
+                  <Heart
+                    className={`w-4 h-4 sm:w-[18px] sm:h-[18px] transition-all duration-200 ${
+                      fav
+                        ? "fill-[#d4af37]"
+                        : "fill-none stroke-[1.5]"
+                    }`}
+                  />
+                </mMotion.span>
+              </APresence>
             </button>
-            <span className="border border-gold-base/30 dark:bg-[#0a0a0a]/80 bg-white/80 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[11px] font-mono tracking-wider font-bold text-gold-base">
+            {/* Price Badge — Glassmorphism */}
+            <span className="bg-zinc-950/40 backdrop-blur-md border border-[#d4af37]/20 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[11px] font-mono tracking-wider font-bold text-[#d4af37]">
               {dest.price}
             </span>
           </div>
