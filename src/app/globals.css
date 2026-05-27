@@ -177,9 +177,14 @@
   pointer-events: none;
 }
 
-/* ─── Custom Scrollbar — VIP Gold ───────────────────────── */
+/* ─── Custom Scrollbar — Ultra-Fine Immersive ─────────────── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(63, 63, 70, 0.35) transparent;
+}
+
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -187,12 +192,13 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #aa7c11;
-  border-radius: 0;
+  background: rgba(63, 63, 70, 0.35);
+  border-radius: 9999px;
+  transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d4af37;
+  background: rgba(170, 124, 17, 0.3);
 }
 
 /* ─── Selection — Gold ──────────────────────────────────── */

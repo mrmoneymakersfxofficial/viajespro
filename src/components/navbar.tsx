@@ -19,8 +19,8 @@ export function Navbar() {
   );
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -55,10 +55,10 @@ export function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
           scrolled
-            ? "dark:bg-[#0a0a0a]/80 bg-white/80 backdrop-blur-md border-b dark:border-white/[0.06] border-zinc-200/80"
-            : "bg-transparent"
+            ? "dark:bg-zinc-950/70 bg-white/70 backdrop-blur-xl border-b dark:border-white/[0.04] border-zinc-200/50 shadow-[0_1px_0_0_rgba(255,255,255,0.03)_inset]"
+            : "bg-transparent border-b border-transparent"
         }`}
       >
         <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
