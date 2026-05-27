@@ -24,13 +24,14 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "ViajesPRO | Agencia de Viajes en Perú - Paquetes Turísticos a Machu Picchu, Cusco y más",
+  title: "Viajeros VIP | Agencia de Viajes Premium en Perú - Paquetes Exclusivos",
   description:
-    "Tu agencia de viajes de confianza en Perú. Paquetes turísticos exclusivos a Machu Picchu, Cusco, Amazonía, Lago Titicaca, Valle Sagrado y más. Reserva ahora con atención 24/7.",
+    "Tu agencia de viajes premium en Perú. Experiencias exclusivas a Machu Picchu, Cusco, Amazonía, Lago Titicaca, Valle Sagrado y más. Reserva ahora con atención VIP 24/7.",
   keywords: [
-    "agencia de viajes Perú",
-    "Machu Picchu tours",
-    "paquetes turísticos Perú",
+    "Viajeros VIP",
+    "agencia de viajes premium Perú",
+    "Machu Picchu tours VIP",
+    "paquetes turísticos exclusivos Perú",
     "travel agency Peru",
     "Cusco tours",
     "Amazon rainforest tours",
@@ -38,22 +39,22 @@ export const metadata: Metadata = {
     "Sacred Valley Peru",
     "Rainbow Mountain",
     "Lima food tours",
-    "viajes a Perú",
-    "tour packages Peru",
+    "viajes VIP a Perú",
+    "luxury tour packages Peru",
     "Perú travel agency",
     "best travel agency Peru",
     "tour operator Peru",
   ],
-  authors: [{ name: "ViajesPRO - Agencia de Viajes" }],
+  authors: [{ name: "Viajeros VIP - Agencia de Viajes Premium" }],
   creator: "Fast Page Pro",
   publisher: "Fast Page Pro",
   metadataBase: new URL("https://www.fastpagepro.com"),
   openGraph: {
-    title: "ViajesPRO | Agencia de Viajes en Perú - Paquetes Turísticos Exclusivos",
+    title: "Viajeros VIP | Agencia de Viajes Premium en Perú - Experiencias Exclusivas",
     description:
-      "Descubre Perú con paquetes turísticos exclusivos a Machu Picchu, Cusco, Amazonía y más. Los mejores precios y atención 24/7.",
+      "Descubre Perú con experiencias exclusivas VIP a Machu Picchu, Cusco, Amazonía y más. Atención premium 24/7.",
     url: "https://www.fastpagepro.com",
-    siteName: "ViajesPRO - Agencia de Viajes",
+    siteName: "Viajeros VIP - Agencia de Viajes Premium",
     type: "website",
     locale: "es_PE",
     alternateLocale: "en_US",
@@ -62,15 +63,15 @@ export const metadata: Metadata = {
         url: "/images/hero-machupicchu.jpg",
         width: 1344,
         height: 768,
-        alt: "Machu Picchu - ViajesPRO Agencia de Viajes Perú",
+        alt: "Machu Picchu - Viajeros VIP Agencia de Viajes Premium Perú",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ViajesPRO | Agencia de Viajes en Perú",
+    title: "Viajeros VIP | Agencia de Viajes Premium en Perú",
     description:
-      "Paquetes turísticos exclusivos a Machu Picchu, Cusco, Amazonía y más. Reserva ahora.",
+      "Experiencias exclusivas VIP a Machu Picchu, Cusco, Amazonía y más. Reserva ahora.",
     images: ["/images/hero-machupicchu.jpg"],
   },
   robots: {

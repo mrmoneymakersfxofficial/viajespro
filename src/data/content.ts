@@ -57,8 +57,8 @@ interface Feature {
 // ─── Site Configuration ─────────────────────────────────────
 export const siteConfig = {
   name: {
-    es: "Agencia de Viajes PRO",
-    en: "PRO Travel Agency",
+    es: "Viajeros VIP",
+    en: "Viajeros VIP",
   },
   tagline: {
     es: "Descubre la magia del Perú",
@@ -98,8 +98,8 @@ export const navLinks = [
 // ─── Hero Section ──────────────────────────────────────────
 export const heroContent = {
   badge: {
-    es: "🔥 Ofertas Especiales 2025",
-    en: "🔥 Special Offers 2025",
+    es: "\u2726 Experiencias de Elite",
+    en: "\u2726 Elite Experiences",
   },
   title: {
     es: "Vive la Aventura de",
@@ -431,7 +431,8 @@ export const footerContent = {
     },
   },
   copyright: {
-    es: "© 2025 Agencia de Viajes PRO. Todos los derechos reservados.",
-    en: "© 2025 PRO Travel Agency. All rights reserved.",
+    es: "Viajeros VIP. Todos los derechos reservados.",
+    en: "Viajeros VIP. All rights reserved.",
   },
+
 };

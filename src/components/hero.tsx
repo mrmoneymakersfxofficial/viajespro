@@ -28,35 +28,35 @@ export function Hero() {
 
     tl.fromTo(
       badgeRef.current,
-      { opacity: 0, y: 30, scale: 0.9 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.8 }
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.8 }
     )
       .fromTo(
         titleRef.current,
-        { opacity: 0, y: 60 },
+        { opacity: 0, y: 40 },
         { opacity: 1, y: 0, duration: 1 },
         "-=0.4"
       )
       .fromTo(
         subtitleRef.current,
-        { opacity: 0, y: 40 },
+        { opacity: 0, y: 30 },
         { opacity: 1, y: 0, duration: 0.8 },
         "-=0.5"
       )
       .fromTo(
         ctaRef.current,
-        { opacity: 0, y: 30 },
+        { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.8 },
         "-=0.4"
       )
       .fromTo(
         statsRef.current,
-        { opacity: 0, y: 40 },
+        { opacity: 0, y: 30 },
         { opacity: 1, y: 0, duration: 0.8 },
         "-=0.3"
       );
 
-    // Parallax effect on scroll
+    // Parallax effect on scroll — safe Y-only transforms
     const handleScroll = () => {
       if (!heroRef.current) return;
       const scrollY = window.scrollY;
@@ -90,11 +90,11 @@ export function Hero() {
     <section
       id="inicio"
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Background Image with Parallax */}
-      <div className="absolute inset-0">
-        <div className="hero-image absolute inset-0 will-change-transform">
+      <div className="absolute inset-0 w-full">
+        <div className="hero-image absolute inset-0 w-full will-change-transform">
           <Image
             src="/images/hero-machupicchu.jpg"
             alt="Machu Picchu - Viajeros VIP"
@@ -106,57 +106,56 @@ export function Hero() {
           />
         </div>
         {/* Dark VIP gradient overlays */}
-        <div className="hero-overlay absolute inset-0 will-change-transform bg-gradient-to-b from-black/70 via-black/50 to-[#0a0a0a]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/40" />
+        <div className="hero-overlay absolute inset-0 w-full will-change-transform bg-gradient-to-b from-black/70 via-black/50 to-[#0a0a0a]" />
+        <div className="absolute inset-0 w-full bg-gradient-to-r from-black/60 via-transparent to-black/40" />
         {/* Gold ambient shimmer */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(212,175,55,0.08),transparent_50%)]" />
+        <div className="absolute inset-0 w-full bg-[radial-gradient(ellipse_at_top_right,rgba(212,175,55,0.08),transparent_50%)]" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 pb-16">
+      {/* Content — Mobile-First */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 pb-16 sm:pt-24 sm:pb-20">
         {/* Badge */}
         <motion.div
           ref={badgeRef}
-          className="inline-flex items-center gap-2 px-4 py-2 border border-gold-base/30 bg-gold-base/5 backdrop-blur-md text-gold-base text-[11px] font-mono tracking-[0.2em] uppercase mb-8"
+          className="inline-flex items-center gap-2 px-4 py-1.5 sm:py-2 border border-gold-base/30 bg-gold-base/5 backdrop-blur-md text-gold-base text-[10px] sm:text-[11px] font-mono tracking-[0.2em] uppercase mb-6 sm:mb-8"
         >
-          <Sparkles className="w-3.5 h-3.5" />
+          <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
           {t(heroContent.badge)}
         </motion.div>
 
-        {/* Title */}
+        {/* Title — Mobile First Typography */}
         <h1
           ref={titleRef}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 leading-[1.1]"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-[1.1]"
         >
-          <span className="font-vip tracking-wider">
+          <span className="font-vip tracking-wider block">
             {t(heroContent.title)}
           </span>
-          <br />
-          <span className="text-gold-gradient font-vip tracking-wider">
+          <span className="text-gold-gradient font-vip tracking-wider block">
             {t(heroContent.titleHighlight)}
           </span>
         </h1>
 
-        {/* Subtitle */}
+        {/* Subtitle — Silver/Plata for body text */}
         <p
           ref={subtitleRef}
-          className="max-w-2xl mx-auto text-base sm:text-lg text-zinc-400 mb-10 leading-relaxed"
+          className="max-w-lg sm:max-w-2xl mx-auto text-sm sm:text-base text-zinc-300 mb-8 sm:mb-10 leading-relaxed"
         >
           {t(heroContent.subtitle)}
         </p>
 
-        {/* CTA Buttons */}
+        {/* CTA Buttons — Full width on mobile, horizontal on desktop */}
         <div
           ref={ctaRef}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-16 px-0 sm:px-0"
         >
           <motion.a
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 h-12 bg-gradient-to-r from-gold-dark via-gold-base to-gold-light px-8 text-[12px] font-mono font-bold tracking-[0.2em] text-zinc-950 shadow-lg shadow-gold-dark/20 transition-transform"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 bg-gradient-to-r from-gold-dark via-gold-base to-gold-light px-8 text-[11px] sm:text-[12px] font-mono font-bold tracking-[0.2em] text-zinc-950 shadow-lg shadow-gold-dark/20 transition-transform"
           >
             <MessageCircle className="w-4 h-4" />
             {t(heroContent.ctaPrimary)}
@@ -164,32 +163,32 @@ export function Hero() {
 
           <motion.button
             onClick={scrollToDestinations}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center h-12 px-8 border border-white/15 bg-white/5 backdrop-blur-md text-white hover:bg-white/10 hover:border-white/25 text-[12px] font-mono tracking-[0.2em] transition-colors"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="w-full sm:w-auto inline-flex items-center justify-center h-12 px-8 border border-white/15 bg-white/5 backdrop-blur-md text-zinc-300 hover:bg-white/10 hover:border-white/25 text-[11px] sm:text-[12px] font-mono tracking-[0.2em] transition-colors"
           >
             {t(heroContent.ctaSecondary)}
           </motion.button>
         </div>
 
-        {/* Stats */}
+        {/* Stats Grid — 2 cols mobile, 4 cols desktop */}
         <div
           ref={statsRef}
-          className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto"
+          className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 md:gap-4 max-w-4xl mx-auto"
         >
           {heroContent.stats.map((stat, i) => (
             <motion.div
               key={i}
-              className="text-center p-4 bg-white/[0.03] backdrop-blur-md border border-white/[0.06]"
+              className="text-center p-3 sm:p-4 bg-white/[0.03] backdrop-blur-md border border-white/[0.06] hover:border-gold-base/20 transition-colors"
               whileHover={{
                 borderColor: "rgba(212,175,55,0.2)",
               }}
               transition={{ duration: 0.3 }}
             >
-              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-gold-base font-vip tracking-wider">
+              <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gold-base font-vip tracking-wider">
                 {stat.value}
               </div>
-              <div className="text-[11px] sm:text-xs font-mono tracking-wider text-zinc-500 mt-1.5 uppercase">
+              <div className="text-[9px] sm:text-[10px] md:text-[11px] font-mono tracking-wider text-zinc-500 mt-1 sm:mt-1.5 uppercase">
                 {t(stat.label)}
               </div>
             </motion.div>
@@ -199,8 +198,8 @@ export function Hero() {
 
       {/* Scroll Indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-        animate={{ y: [0, 10, 0] }}
+        className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-10"
+        animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
       >
         <button
@@ -208,7 +207,7 @@ export function Hero() {
           className="p-2 border border-white/10 bg-white/5 backdrop-blur-md text-zinc-500 hover:text-gold-base hover:border-gold-base/30 transition-all"
           aria-label="Scroll down"
         >
-          <ChevronDown className="w-5 h-5" />
+          <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
       </motion.div>
     </section>

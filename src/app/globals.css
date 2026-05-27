@@ -3,14 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@font-face {
-  font-family: 'Cinzel';
-  font-style: normal;
-  font-weight: 400 900;
-  font-display: swap;
-  src: url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap');
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -63,57 +55,24 @@
   --color-vip-text: #a0a0a0;
 }
 
+/* ─── VIP Dark Theme (Primary) ──────────────────────────── */
 :root {
   --radius: 0.25rem;
-  --background: oklch(0.97 0.002 80);
-  --foreground: oklch(0.12 0.01 60);
-  --card: oklch(0.99 0 0);
-  --card-foreground: oklch(0.12 0.01 60);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.12 0.01 60);
-  --primary: oklch(0.7 0.14 85);
-  --primary-foreground: oklch(0.12 0.01 60);
-  --secondary: oklch(0.95 0.01 85);
-  --secondary-foreground: oklch(0.2 0.01 60);
-  --muted: oklch(0.95 0.008 85);
-  --muted-foreground: oklch(0.45 0.01 60);
-  --accent: oklch(0.93 0.015 85);
-  --accent-foreground: oklch(0.2 0.01 60);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.88 0.008 85);
-  --input: oklch(0.88 0.008 85);
-  --ring: oklch(0.7 0.14 85);
-  --chart-1: oklch(0.7 0.14 85);
-  --chart-2: oklch(0.65 0.12 90);
-  --chart-3: oklch(0.6 0.1 80);
-  --chart-4: oklch(0.75 0.08 85);
-  --chart-5: oklch(0.55 0.16 75);
-  --sidebar: oklch(0.98 0.003 85);
-  --sidebar-foreground: oklch(0.12 0.01 60);
-  --sidebar-primary: oklch(0.7 0.14 85);
-  --sidebar-primary-foreground: oklch(0.12 0.01 60);
-  --sidebar-accent: oklch(0.93 0.015 85);
-  --sidebar-accent-foreground: oklch(0.2 0.01 60);
-  --sidebar-border: oklch(0.88 0.008 85);
-  --sidebar-ring: oklch(0.7 0.14 85);
-}
-
-.dark {
   --background: #0a0a0a;
-  --foreground: oklch(0.93 0.005 85);
+  --foreground: #e4e4e7;
   --card: #121212;
-  --card-foreground: oklch(0.93 0.005 85);
+  --card-foreground: #e4e4e7;
   --popover: #121212;
-  --popover-foreground: oklch(0.93 0.005 85);
+  --popover-foreground: #e4e4e7;
   --primary: #d4af37;
   --primary-foreground: #0a0a0a;
   --secondary: #1a1a1a;
-  --secondary-foreground: oklch(0.88 0.005 85);
+  --secondary-foreground: #d4d4d8;
   --muted: #1a1a1a;
-  --muted-foreground: oklch(0.6 0.01 85);
+  --muted-foreground: #71717a;
   --accent: #1a1a1a;
-  --accent-foreground: oklch(0.88 0.005 85);
-  --destructive: oklch(0.704 0.191 22.216);
+  --accent-foreground: #d4d4d8;
+  --destructive: #ef4444;
   --border: rgba(255, 255, 255, 0.06);
   --input: rgba(255, 255, 255, 0.08);
   --ring: #d4af37;
@@ -123,15 +82,51 @@
   --chart-4: #c4a030;
   --chart-5: #e5d090;
   --sidebar: #0e0e0e;
-  --sidebar-foreground: oklch(0.93 0.005 85);
+  --sidebar-foreground: #e4e4e7;
   --sidebar-primary: #d4af37;
   --sidebar-primary-foreground: #0a0a0a;
   --sidebar-accent: #1a1a1a;
-  --sidebar-accent-foreground: oklch(0.88 0.005 85);
+  --sidebar-accent-foreground: #d4d4d8;
   --sidebar-border: rgba(255, 255, 255, 0.06);
   --sidebar-ring: #d4af37;
 }
 
+/* ─── Light Mode — VIP Warm ─────────────────────────────── */
+.light {
+  --background: #faf9f6;
+  --foreground: #1c1c1e;
+  --card: #ffffff;
+  --card-foreground: #1c1c1e;
+  --popover: #ffffff;
+  --popover-foreground: #1c1c1e;
+  --primary: #aa7c11;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f3ef;
+  --secondary-foreground: #3f3f46;
+  --muted: #f4f2ee;
+  --muted-foreground: #71717a;
+  --accent: #f5f3ef;
+  --accent-foreground: #3f3f46;
+  --destructive: #ef4444;
+  --border: rgba(0, 0, 0, 0.08);
+  --input: rgba(0, 0, 0, 0.06);
+  --ring: #d4af37;
+  --chart-1: #d4af37;
+  --chart-2: #aa7c11;
+  --chart-3: #f3e5ab;
+  --chart-4: #c4a030;
+  --chart-5: #e5d090;
+  --sidebar: #faf9f6;
+  --sidebar-foreground: #1c1c1e;
+  --sidebar-primary: #aa7c11;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f5f3ef;
+  --sidebar-accent-foreground: #3f3f46;
+  --sidebar-border: rgba(0, 0, 0, 0.08);
+  --sidebar-ring: #d4af37;
+}
+
+/* ─── Base Layer ────────────────────────────────────────── */
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -144,7 +139,7 @@
   }
 }
 
-/* Custom scrollbar - VIP Gold */
+/* ─── Custom Scrollbar — VIP Gold ───────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -162,19 +157,19 @@
   background: #d4af37;
 }
 
-/* Selection color - Gold */
+/* ─── Selection — Gold ──────────────────────────────────── */
 ::selection {
   background: rgba(212, 175, 55, 0.3);
   color: #0a0a0a;
 }
 
-/* VIP Font Utility */
+/* ─── VIP Font Utility ──────────────────────────────────── */
 .font-vip {
   font-family: var(--font-cinzel), "Cinzel", Georgia, serif;
   letter-spacing: 0.08em;
 }
 
-/* Gold text gradient utility */
+/* ─── Gold Text Gradient ────────────────────────────────── */
 .text-gold-gradient {
   background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #aa7c11 100%);
   -webkit-background-clip: text;
@@ -182,12 +177,12 @@
   background-clip: text;
 }
 
-/* Gold border gradient utility */
+/* ─── Gold Border Gradient ──────────────────────────────── */
 .border-gold-gradient {
   border-image: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #aa7c11 100%) 1;
 }
 
-/* Subtle gold glow */
+/* ─── Subtle Gold Glow ──────────────────────────────────── */
 .shadow-gold {
   box-shadow: 0 0 30px rgba(212, 175, 55, 0.08);
 }
@@ -196,7 +191,7 @@
   box-shadow: 0 0 50px rgba(212, 175, 55, 0.12);
 }
 
-/* Gold divider line */
+/* ─── Gold Divider Line ─────────────────────────────────── */
 .divider-gold {
   height: 1px;
   background: linear-gradient(90deg, transparent, #d4af37, transparent);

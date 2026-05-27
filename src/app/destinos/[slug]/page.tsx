@@ -26,10 +26,10 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${dest.title.es} | ViajesPRO`,
+    title: `${dest.title.es} | Viajeros VIP`,
     description: dest.description.es,
     openGraph: {
-      title: `${dest.title.es} | ViajesPRO`,
+      title: `${dest.title.es} | Viajeros VIP`,
       description: dest.description.es,
       url: `https://viajespro.vercel.app/destinos/${slug}`,
       images: [{ url: dest.image, width: 1200, height: 630 }],
