@@ -143,12 +143,7 @@
     overflow-x: hidden;
   }
 
-  /* Bottom safe area for mobile tab bar */
-  @media (max-width: 767px) {
-    footer {
-      padding-bottom: 5rem;
-    }
-  }
+  /* Mobile tab bar spacing handled via Tailwind classes on footer */
 }
 
 /* ─── Section Transition Utility ───────────────────────── */

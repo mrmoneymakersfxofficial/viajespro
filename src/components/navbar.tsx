@@ -92,7 +92,7 @@ export function Navbar() {
                     e.preventDefault();
                     handleNavClick(link.href);
                   }}
-                  className="text-[11px] font-mono tracking-[0.2em] text-zinc-600 dark:text-zinc-500 hover:text-gold-base transition-colors uppercase"
+                  className="relative text-[11px] font-mono tracking-[0.2em] text-zinc-600 dark:text-zinc-300 dark:opacity-80 hover:text-gold-base dark:hover:text-gold-base hover:tracking-[0.28em] dark:hover:tracking-[0.28em] hover:opacity-100 dark:hover:opacity-100 transition-all duration-300 ease-out uppercase"
                   whileHover={{ y: -1 }}
                   whileTap={{ y: 0 }}
                 >

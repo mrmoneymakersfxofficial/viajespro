@@ -135,7 +135,7 @@ export function Footer() {
   const { t, language } = useLanguage();
 
   return (
-    <footer className="relative dark:bg-[#080808] bg-[#1a1a1c] text-zinc-400 dark:text-zinc-400 pt-14 sm:pt-16 pb-6 sm:pb-8 overflow-hidden">
+    <footer className="relative dark:bg-[#080808] bg-[#1a1a1c] text-zinc-400 dark:text-zinc-400 pt-14 sm:pt-16 pb-28 sm:pb-8 overflow-hidden">
       {/* Top gradient */}
       <div className="absolute top-0 left-0 right-0 h-12 sm:h-16 bg-gradient-to-b dark:from-background from-[#eceae5] to-transparent pointer-events-none" />
       {/* Gold line */}
