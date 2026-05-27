@@ -121,7 +121,7 @@ export function Features() {
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
           {/* Left: Image */}
           <div ref={imageRef} className="relative">
-            <div className="relative overflow-hidden border border-white/[0.06]">
+            <div className="relative overflow-hidden border dark:border-white/[0.06] border-zinc-200 shadow-sm dark:shadow-none">
               <Image
                 src="/images/experience.jpg"
                 alt={language === "es" ? "Experiencia VIP en Peru" : "VIP Experience in Peru"}
@@ -134,7 +134,7 @@ export function Features() {
             </div>
             {/* Floating Stats Card */}
             <motion.div
-              className="absolute -bottom-4 -right-2 sm:right-4 bg-[#121212] p-3 sm:p-4 shadow-xl border border-white/[0.06]"
+              className="absolute -bottom-4 -right-2 sm:right-4 dark:bg-[#121212] bg-white p-3 sm:p-4 dark:shadow-xl shadow-lg shadow-zinc-200/50 border dark:border-white/[0.06] border-zinc-200"
               whileHover={{ y: -4 }}
               transition={{ duration: 0.3 }}
             >
@@ -159,7 +159,7 @@ export function Features() {
               return (
                 <motion.div
                   key={feature.icon}
-                  className="feature-item group flex gap-3 sm:gap-4 p-3.5 sm:p-5 bg-card border border-border hover:border-gold-dark/20 transition-all duration-300"
+                  className="feature-item group flex gap-3 sm:gap-4 p-3.5 sm:p-5 bg-card border border-border dark:hover:border-gold-dark/20 hover:border-gold-base/30 transition-all duration-300 shadow-sm dark:shadow-none"
                   whileHover={{ x: 4 }}
                 >
                   <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 border border-gold-base/20 flex items-center justify-center group-hover:border-gold-base/40 transition-colors">
@@ -272,7 +272,7 @@ export function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
-              className="testimonial-card group p-4 sm:p-6 bg-card border border-border hover:border-gold-dark/20 transition-all duration-500"
+              className="testimonial-card group p-4 sm:p-6 bg-card border border-border dark:hover:border-gold-dark/20 hover:border-gold-base/30 transition-all duration-500 shadow-sm dark:shadow-none"
               whileHover={{ y: -3 }}
             >
               {/* Gold quote mark */}

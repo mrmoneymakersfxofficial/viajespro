@@ -91,39 +91,39 @@
   --sidebar-ring: #d4af37;
 }
 
-/* ─── Light Mode — VIP Warm ─────────────────────────────── */
+/* ─── Light Mode — VIP Luxury (WCAG AA Contrast) ────────── */
 .light {
-  --background: #faf9f6;
-  --foreground: #1c1c1e;
+  --background: #f5f4f1;
+  --foreground: #1a1a1c;
   --card: #ffffff;
-  --card-foreground: #1c1c1e;
+  --card-foreground: #1a1a1c;
   --popover: #ffffff;
-  --popover-foreground: #1c1c1e;
-  --primary: #aa7c11;
+  --popover-foreground: #1a1a1c;
+  --primary: #916f1c;
   --primary-foreground: #ffffff;
-  --secondary: #f5f3ef;
-  --secondary-foreground: #3f3f46;
-  --muted: #f4f2ee;
-  --muted-foreground: #71717a;
-  --accent: #f5f3ef;
+  --secondary: #eceae5;
+  --secondary-foreground: #27272a;
+  --muted: #eceae5;
+  --muted-foreground: #52525b;
+  --accent: #f0eee8;
   --accent-foreground: #3f3f46;
   --destructive: #ef4444;
-  --border: rgba(0, 0, 0, 0.08);
-  --input: rgba(0, 0, 0, 0.06);
-  --ring: #d4af37;
-  --chart-1: #d4af37;
-  --chart-2: #aa7c11;
-  --chart-3: #f3e5ab;
+  --border: #e4e4e7;
+  --input: #d4d4d8;
+  --ring: #aa7c11;
+  --chart-1: #aa7c11;
+  --chart-2: #916f1c;
+  --chart-3: #d4af37;
   --chart-4: #c4a030;
   --chart-5: #e5d090;
-  --sidebar: #faf9f6;
-  --sidebar-foreground: #1c1c1e;
+  --sidebar: #f5f4f1;
+  --sidebar-foreground: #1a1a1c;
   --sidebar-primary: #aa7c11;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f5f3ef;
-  --sidebar-accent-foreground: #3f3f46;
-  --sidebar-border: rgba(0, 0, 0, 0.08);
-  --sidebar-ring: #d4af37;
+  --sidebar-accent: #eceae5;
+  --sidebar-accent-foreground: #27272a;
+  --sidebar-border: #e4e4e7;
+  --sidebar-ring: #aa7c11;
 }
 
 /* ─── Base Layer ────────────────────────────────────────── */
@@ -208,6 +208,13 @@
 /* ─── Gold Text Gradient ────────────────────────────────── */
 .text-gold-gradient {
   background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #aa7c11 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.light .text-gold-gradient {
+  background: linear-gradient(135deg, #aa7c11 0%, #916f1c 50%, #7a5c16 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

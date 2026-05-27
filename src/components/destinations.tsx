@@ -9,7 +9,7 @@ import { useLanguage } from "@/context/language-context";
 import { MessageCircle, Clock, X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 import gsap from "gsap";
 
-// ─── Lightbox Component ────────────────────────────────────
+// ─── Lightbox ──────────────────────────────────────────────
 function Lightbox({
   images,
   initialIndex,
@@ -21,118 +21,52 @@ function Lightbox({
 }) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
 
-  const goNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
-  }, [images.length]);
-
-  const goPrev = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-  }, [images.length]);
+  const goNext = useCallback(() => setCurrentIndex((p) => (p + 1) % images.length), [images.length]);
+  const goPrev = useCallback(() => setCurrentIndex((p) => (p - 1 + images.length) % images.length), [images.length]);
 
   useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
+    const handle = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowRight") goNext();
       if (e.key === "ArrowLeft") goPrev();
-    }
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    };
+    window.addEventListener("keydown", handle);
+    return () => window.removeEventListener("keydown", handle);
   }, [onClose, goNext, goPrev]);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, []);
 
-  const touchStartRef = useRef(0);
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartRef.current = e.touches[0].clientX;
-  };
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    const diff = touchStartRef.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) goNext();
-      else goPrev();
-    }
-  };
-
+  const touchRef = useRef(0);
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.2 }}
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
         className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0a0a0a]/98 backdrop-blur-md"
         onClick={onClose}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
+        onTouchStart={(e) => { touchRef.current = e.touches[0].clientX; }}
+        onTouchEnd={(e) => {
+          const d = touchRef.current - e.changedTouches[0].clientX;
+          if (Math.abs(d) > 50) { d > 0 ? goNext() : goPrev(); }
+        }}
       >
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 z-[110] flex h-11 w-11 items-center justify-center bg-white/[0.06] hover:bg-white/10 text-zinc-400 hover:text-gold-base transition-colors border border-white/[0.06]"
-          aria-label="Cerrar"
-        >
-          <X className="w-5 h-5" />
-        </button>
-
-        <div className="absolute top-5 left-1/2 -translate-x-1/2 z-[110] text-zinc-500 text-sm font-mono tracking-wider">
-          {currentIndex + 1} / {images.length}
-        </div>
-
+        <button onClick={onClose} className="absolute top-4 right-4 z-[110] flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center bg-white/[0.08] hover:bg-white/15 text-zinc-300 hover:text-gold-base transition-colors border border-white/[0.06]" aria-label="Cerrar"><X className="w-5 h-5" /></button>
+        <div className="absolute top-5 left-1/2 -translate-x-1/2 z-[110] text-zinc-400 text-sm font-mono tracking-wider">{currentIndex + 1} / {images.length}</div>
         {images.length > 1 && (
-          <button
-            onClick={(e) => { e.stopPropagation(); goPrev(); }}
-            className="absolute left-2 sm:left-6 z-[110] flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center bg-white/[0.06] hover:bg-white/10 text-zinc-400 hover:text-gold-base transition-colors border border-white/[0.06]"
-            aria-label="Anterior"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
+          <button onClick={(e) => { e.stopPropagation(); goPrev(); }} className="absolute left-2 sm:left-6 z-[110] flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center bg-white/[0.08] hover:bg-white/15 text-zinc-300 hover:text-gold-base transition-colors border border-white/[0.06]" aria-label="Anterior"><ChevronLeft className="w-5 h-5" /></button>
         )}
-
-        <motion.div
-          key={currentIndex}
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.92 }}
-          transition={{ type: "spring", damping: 28, stiffness: 300 }}
-          className="relative max-w-6xl w-full mx-2 sm:mx-4 aspect-[4/3] sm:aspect-video overflow-hidden border border-white/[0.06]"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <Image
-            src={images[currentIndex].src}
-            alt={images[currentIndex].alt}
-            fill
-            className="object-contain"
-            sizes="100vw"
-            priority
-          />
+        <motion.div key={currentIndex} initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.92 }} transition={{ type: "spring", damping: 28, stiffness: 300 }} className="relative max-w-6xl w-full mx-2 sm:mx-4 aspect-[4/3] sm:aspect-video overflow-hidden border border-white/[0.06]" onClick={(e) => e.stopPropagation()}>
+          <Image src={images[currentIndex].src} alt={images[currentIndex].alt} fill className="object-contain" sizes="100vw" priority />
         </motion.div>
-
         {images.length > 1 && (
-          <button
-            onClick={(e) => { e.stopPropagation(); goNext(); }}
-            className="absolute right-2 sm:right-6 z-[110] flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center bg-white/[0.06] hover:bg-white/10 text-zinc-400 hover:text-gold-base transition-colors border border-white/[0.06]"
-            aria-label="Siguiente"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
+          <button onClick={(e) => { e.stopPropagation(); goNext(); }} className="absolute right-2 sm:right-6 z-[110] flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center bg-white/[0.08] hover:bg-white/15 text-zinc-300 hover:text-gold-base transition-colors border border-white/[0.06]" aria-label="Siguiente"><ChevronRight className="w-5 h-5" /></button>
         )}
-
         {images.length > 1 && (
           <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-[110] flex gap-2 max-w-[90vw] overflow-x-auto px-2">
             {images.map((img, i) => (
-              <button
-                key={i}
-                onClick={(e) => { e.stopPropagation(); setCurrentIndex(i); }}
-                className={`relative h-12 w-16 sm:h-14 sm:w-20 overflow-hidden flex-shrink-0 border-2 transition-all ${
-                  i === currentIndex
-                    ? "border-gold-base opacity-100"
-                    : "border-white/10 opacity-40 hover:opacity-70"
-                }`}
-              >
+              <button key={i} onClick={(e) => { e.stopPropagation(); setCurrentIndex(i); }} className={`relative h-12 w-16 sm:h-14 sm:w-20 overflow-hidden flex-shrink-0 border-2 transition-all ${i === currentIndex ? "border-gold-base opacity-100" : "border-white/10 opacity-40 hover:opacity-70"}`}>
                 <Image src={img.src} alt={img.alt} fill className="object-cover" sizes="80px" />
               </button>
             ))}
@@ -144,104 +78,52 @@ function Lightbox({
 }
 
 // ─── Destination Card ──────────────────────────────────────
-function DestinationCard({
-  dest,
-  language,
-  index,
-  onOpenLightbox,
-}: {
-  dest: typeof destinations[0];
-  language: "es" | "en";
-  index: number;
-  onOpenLightbox: (destId: string) => void;
+function DestinationCard({ dest, language, index, onOpenLightbox }: {
+  dest: typeof destinations[0]; language: "es" | "en"; index: number; onOpenLightbox: (id: string) => void;
 }) {
   const t = (item: { es: string; en: string }) => item[language];
-
   const whatsappUrl = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
-    language === "es"
-      ? `Hola! Deseo cotizar el paquete premium a: *${t(dest.title)}* \u2708\ufe0f`
-      : `Hello! I want to quote the premium package for: *${t(dest.title)}* \u2708\ufe0f`
+    language === "es" ? `Hola! Deseo cotizar el paquete premium a: *${t(dest.title)}* ✈️` : `Hello! I want to quote the premium package for: *${t(dest.title)}* ✈️`
   )}`;
 
   return (
     <motion.div
-      className="destination-card group overflow-hidden border border-white/[0.06] bg-[#121212] transition-all duration-500 hover:border-gold-dark/30 w-full"
+      className="destination-card group overflow-hidden border dark:border-white/[0.06] border-zinc-200 dark:bg-[#121212] bg-white transition-all duration-500 hover:border-gold-dark/30 shadow-sm dark:shadow-none w-full"
       whileHover={{ y: -4 }}
       transition={{ duration: 0.3 }}
     >
-      {/* Full Margin Image */}
-      <div
-        className="relative aspect-[4/3] w-full overflow-hidden cursor-zoom-in"
-        onClick={() => onOpenLightbox(dest.id)}
-      >
-        <Image
-          src={dest.image}
-          alt={t(dest.title)}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
-          priority={index === 0}
-        />
-
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-black/20 to-transparent" />
-
-        {/* Floating badges */}
+      {/* Image */}
+      <div className="relative aspect-[4/3] w-full overflow-hidden cursor-zoom-in" onClick={() => onOpenLightbox(dest.id)}>
+        <Image src={dest.image} alt={t(dest.title)} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" priority={index === 0} />
+        <div className="absolute inset-0 bg-gradient-to-t dark:from-[#121212] from-white via-black/20 to-transparent" />
+        {/* Badges */}
         <div className="absolute inset-x-0 top-0 p-2.5 sm:p-4 flex justify-between items-start pointer-events-none">
-          <span className="border border-white/[0.1] bg-[#0a0a0a]/80 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[11px] font-mono tracking-wider text-zinc-300 flex items-center gap-1 sm:gap-1.5">
-            <Clock className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-            {dest.duration}
+          <span className="border dark:border-white/[0.1] border-zinc-300 dark:bg-[#0a0a0a]/80 bg-white/80 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[11px] font-mono tracking-wider dark:text-zinc-300 text-zinc-700 flex items-center gap-1 sm:gap-1.5">
+            <Clock className="w-2.5 h-2.5 sm:w-3 sm:h-3" />{dest.duration}
           </span>
-          <span className="border border-gold-base/30 bg-[#0a0a0a]/80 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[11px] font-mono tracking-wider font-bold text-gold-base">
+          <span className="border border-gold-base/30 dark:bg-[#0a0a0a]/80 bg-white/80 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[11px] font-mono tracking-wider font-bold text-gold-base">
             {dest.price}
           </span>
         </div>
-
-        {/* Zoom icon on hover */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-          <div className="h-12 w-12 sm:h-14 sm:w-14 bg-gold-base/10 backdrop-blur-md flex items-center justify-center border border-gold-base/20">
-            <ZoomIn className="w-5 h-5 sm:w-6 sm:h-6 text-gold-base" />
-          </div>
+          <div className="h-12 w-12 sm:h-14 sm:w-14 bg-gold-base/10 backdrop-blur-md flex items-center justify-center border border-gold-base/20"><ZoomIn className="w-5 h-5 sm:w-6 sm:h-6 text-gold-base" /></div>
         </div>
       </div>
 
       {/* Content */}
       <div className="p-4 sm:p-5 lg:p-6">
-        {/* Title */}
-        <h3 className="text-base sm:text-lg lg:text-xl font-vip tracking-wider text-zinc-100 uppercase group-hover:text-gold-light transition-colors">
-          {t(dest.title)}
-        </h3>
-
-        {/* Tags */}
+        <h3 className="text-base sm:text-lg lg:text-xl font-vip tracking-wider dark:text-zinc-100 text-zinc-900 uppercase group-hover:text-gold-base transition-colors">{t(dest.title)}</h3>
         <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-2 sm:mt-2.5 mb-4 sm:mb-5">
-          {t(dest.highlights)
-            .slice(0, 3)
-            .map((tag, tagIdx) => (
-              <span
-                key={tagIdx}
-                className="bg-white/[0.03] border border-white/[0.04] px-1.5 sm:px-2 py-0.5 text-[9px] sm:text-[10px] font-mono tracking-wider text-zinc-500"
-              >
-                {tag}
-              </span>
-            ))}
+          {t(dest.highlights).slice(0, 3).map((tag, i) => (
+            <span key={i} className="dark:bg-white/[0.03] bg-zinc-100 border dark:border-white/[0.04] border-zinc-200 px-1.5 sm:px-2 py-0.5 text-[9px] sm:text-[10px] font-mono tracking-wider dark:text-zinc-500 text-zinc-600">{tag}</span>
+          ))}
         </div>
-
-        {/* CTA Buttons */}
         <div className="grid grid-cols-2 gap-2 sm:gap-3">
-          <Link
-            href={`/destinos/${dest.slug[language]}`}
-            className="flex h-10 sm:h-11 items-center justify-center border border-white/[0.06] bg-white/[0.02] text-[10px] sm:text-[11px] font-mono tracking-[0.12em] text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-200 transition-colors uppercase"
-          >
+          <Link href={`/destinos/${dest.slug[language]}`} className="flex h-10 sm:h-11 items-center justify-center border dark:border-white/[0.06] border-zinc-200 dark:bg-white/[0.02] bg-zinc-50 text-[10px] sm:text-[11px] font-mono tracking-[0.12em] dark:text-zinc-400 text-zinc-700 dark:hover:bg-white/[0.06] hover:bg-zinc-100 transition-colors uppercase">
             {language === "es" ? "Itinerario" : "Itinerary"}
           </Link>
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex h-10 sm:h-11 items-center justify-center gap-1 sm:gap-1.5 bg-gold-base text-[10px] sm:text-[11px] font-mono tracking-[0.12em] font-bold text-zinc-950 hover:bg-gold-light transition-colors uppercase"
-          >
-            <MessageCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-            {language === "es" ? "Reservar" : "Book"}
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex h-10 sm:h-11 items-center justify-center gap-1 sm:gap-1.5 bg-gold-base text-[10px] sm:text-[11px] font-mono tracking-[0.12em] font-bold text-zinc-950 hover:bg-gold-light transition-colors uppercase">
+            <MessageCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5" />{language === "es" ? "Reservar" : "Book"}
           </a>
         </div>
       </div>
@@ -249,7 +131,7 @@ function DestinationCard({
   );
 }
 
-// ─── Main Destinations Section ─────────────────────────────
+// ─── Main Section ──────────────────────────────────────────
 export function Destinations() {
   const { language } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
@@ -260,122 +142,45 @@ export function Destinations() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     let cancelled = false;
-
     (async () => {
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       if (cancelled) return;
       gsap.registerPlugin(ScrollTrigger);
-
       if (!sectionRef.current || !titleRef.current) return;
-
-      gsap.fromTo(
-        titleRef.current,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: titleRef.current,
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-
+      gsap.fromTo(titleRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: titleRef.current, start: "top 85%", toggleActions: "play none none none" } });
       if (gridRef.current) {
         const cards = gridRef.current.querySelectorAll(".destination-card");
-        gsap.fromTo(
-          cards,
-          { opacity: 0, y: 60, scale: 0.97 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: gridRef.current,
-              start: "top 85%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
+        gsap.fromTo(cards, { opacity: 0, y: 60, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", scrollTrigger: { trigger: gridRef.current, start: "top 85%", toggleActions: "play none none none" } });
       }
     })();
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  const handleOpenLightbox = useCallback((destId: string) => {
-    setActiveLightboxDest(destId);
+    return () => { cancelled = true; };
   }, []);
 
   const activeDest = destinations.find((d) => d.id === activeLightboxDest);
-  const lightboxImages = activeDest
-    ? [{ src: activeDest.image, alt: activeDest.title[language] }]
-    : [];
-
   return (
-    <section
-      id="destinos"
-      ref={sectionRef}
-      className="relative py-14 sm:py-20 lg:py-28 bg-background overflow-hidden"
-    >
-      {/* Gold accent line at top */}
+    <section id="destinos" ref={sectionRef} className="relative py-14 sm:py-20 lg:py-28 bg-background overflow-hidden">
       <div className="divider-gold mb-12 sm:mb-16" />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Section Header */}
         <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-8 sm:mb-14">
           <span className="inline-block text-[10px] sm:text-[11px] font-mono tracking-[0.3em] text-gold-base uppercase mb-3 sm:mb-4">
-            {language === "es"
-              ? "Destinos Exclusivos"
-              : "Exclusive Destinations"}
+            {language === "es" ? "Destinos Exclusivos" : "Exclusive Destinations"}
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-vip tracking-wider text-foreground mb-3 sm:mb-4 uppercase">
-            {language === "es"
-              ? "Paquetes Turisticos"
-              : "Tour Packages"}
-            <span className="text-gold-gradient ml-2 sm:ml-3">
-              VIP
-            </span>
+            {language === "es" ? "Paquetes Turisticos" : "Tour Packages"}
+            <span className="text-gold-gradient ml-2 sm:ml-3">VIP</span>
           </h2>
           <p className="text-xs sm:text-sm lg:text-base text-muted-foreground max-w-xl mx-auto font-mono px-2">
-            {language === "es"
-              ? "Explora nuestra seleccion de destinos cuidadosamente disenados para ofrecerte la mejor experiencia de viaje en Peru."
-              : "Explore our selection of destinations carefully designed to offer you the best travel experience in Peru."}
+            {language === "es" ? "Explora nuestra seleccion de destinos cuidadosamente disenados para ofrecerte la mejor experiencia de viaje en Peru." : "Explore our selection of destinations carefully designed to offer you the best travel experience in Peru."}
           </p>
         </div>
-
-        {/* Destinations Grid */}
-        <div
-          ref={gridRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6"
-        >
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
           {destinations.map((dest, index) => (
-            <DestinationCard
-              key={dest.id}
-              dest={dest}
-              language={language}
-              index={index}
-              onOpenLightbox={handleOpenLightbox}
-            />
+            <DestinationCard key={dest.id} dest={dest} language={language} index={index} onOpenLightbox={(id) => setActiveLightboxDest(id)} />
           ))}
         </div>
       </div>
-
-      {/* Lightbox */}
       {activeDest && (
-        <Lightbox
-          images={lightboxImages}
-          initialIndex={0}
-          onClose={() => setActiveLightboxDest(null)}
-        />
+        <Lightbox images={[{ src: activeDest.image, alt: activeDest.title[language] }]} initialIndex={0} onClose={() => setActiveLightboxDest(null)} />
       )}
     </section>
   );

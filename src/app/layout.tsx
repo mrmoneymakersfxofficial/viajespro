@@ -103,8 +103,9 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
-          enableSystem
+          enableSystem={false}
           disableTransitionOnChange
+          storageKey="viajeros-vip-theme"
         >
           <LanguageProvider>{children}</LanguageProvider>
         </ThemeProvider>

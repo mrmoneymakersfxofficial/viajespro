@@ -56,24 +56,15 @@ export function Hero() {
         "-=0.3"
       );
 
-    // Parallax — Y-only safe transforms
     const handleScroll = () => {
       if (!heroRef.current) return;
       const scrollY = window.scrollY;
       const heroHeight = heroRef.current.offsetHeight;
       if (scrollY < heroHeight) {
-        const overlay = heroRef.current.querySelector(
-          ".hero-overlay"
-        ) as HTMLElement;
-        if (overlay) {
-          overlay.style.transform = `translateY(${scrollY * 0.3}px)`;
-        }
-        const img = heroRef.current.querySelector(
-          ".hero-image"
-        ) as HTMLElement;
-        if (img) {
-          img.style.transform = `translateY(${scrollY * 0.15}px) scale(${1 + scrollY * 0.0003})`;
-        }
+        const overlay = heroRef.current.querySelector(".hero-overlay") as HTMLElement;
+        if (overlay) overlay.style.transform = `translateY(${scrollY * 0.3}px)`;
+        const img = heroRef.current.querySelector(".hero-image") as HTMLElement;
+        if (img) img.style.transform = `translateY(${scrollY * 0.15}px) scale(${1 + scrollY * 0.0003})`;
       }
     };
 
@@ -92,7 +83,7 @@ export function Hero() {
       ref={heroRef}
       className="relative w-full min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background Image with Parallax */}
+      {/* Background */}
       <div className="absolute inset-0 w-full">
         <div className="hero-image absolute inset-0 w-full will-change-transform">
           <Image
@@ -105,14 +96,14 @@ export function Hero() {
             quality={90}
           />
         </div>
-        {/* Dark VIP gradient overlays */}
+        {/* Dark overlay */}
         <div className="hero-overlay absolute inset-0 w-full will-change-transform bg-gradient-to-b from-black/70 via-black/50 to-background" />
         <div className="absolute inset-0 w-full bg-gradient-to-r from-black/60 via-transparent to-black/40" />
-        {/* Gold ambient shimmer */}
+        {/* Gold shimmer */}
         <div className="absolute inset-0 w-full bg-[radial-gradient(ellipse_at_top_right,rgba(212,175,55,0.08),transparent_50%)]" />
       </div>
 
-      {/* Content — Mobile-First */}
+      {/* Content */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 pb-20 sm:pt-24 sm:pb-24">
         {/* Badge */}
         <motion.div
@@ -126,7 +117,7 @@ export function Hero() {
         {/* Title */}
         <h1
           ref={titleRef}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-[1.1]"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white dark:text-white mb-4 sm:mb-6 leading-[1.1]"
         >
           <span className="font-vip tracking-wider block">
             {t(heroContent.title)}
@@ -136,26 +127,23 @@ export function Hero() {
           </span>
         </h1>
 
-        {/* Subtitle — Plata */}
+        {/* Subtitle */}
         <p
           ref={subtitleRef}
-          className="max-w-lg sm:max-w-2xl mx-auto text-sm sm:text-base text-zinc-300 mb-8 sm:mb-10 leading-relaxed"
+          className="max-w-lg sm:max-w-2xl mx-auto text-sm sm:text-base text-zinc-200 dark:text-zinc-300 mb-8 sm:mb-10 leading-relaxed"
         >
           {t(heroContent.subtitle)}
         </p>
 
-        {/* CTA Buttons — Full width mobile, horizontal desktop */}
-        <div
-          ref={ctaRef}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-16 w-full"
-        >
+        {/* CTA Buttons */}
+        <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-16 w-full">
           <motion.a
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 bg-gradient-to-r from-gold-dark via-gold-base to-gold-light px-8 text-[11px] sm:text-[12px] font-mono font-bold tracking-[0.2em] text-zinc-950 shadow-lg shadow-gold-dark/20 transition-transform"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 bg-gradient-to-r from-gold-dark via-gold-base to-gold-light dark:from-gold-dark dark:via-gold-base dark:to-gold-light px-8 text-[11px] sm:text-[12px] font-mono font-bold tracking-[0.2em] text-zinc-950 shadow-lg shadow-gold-dark/20 transition-transform"
           >
             <MessageCircle className="w-4 h-4" />
             {t(heroContent.ctaPrimary)}
@@ -165,30 +153,25 @@ export function Hero() {
             onClick={scrollToDestinations}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className="w-full sm:w-auto inline-flex items-center justify-center h-12 px-8 border border-white/15 bg-white/5 backdrop-blur-md text-zinc-300 hover:bg-white/10 hover:border-white/25 text-[11px] sm:text-[12px] font-mono tracking-[0.2em] transition-colors"
+            className="w-full sm:w-auto inline-flex items-center justify-center h-12 px-8 border border-white/20 bg-white/10 backdrop-blur-md text-zinc-100 hover:bg-white/15 hover:border-white/30 dark:text-zinc-300 dark:bg-white/5 dark:border-white/15 dark:hover:bg-white/10 dark:hover:border-white/25 text-[11px] sm:text-[12px] font-mono tracking-[0.2em] transition-colors"
           >
             {t(heroContent.ctaSecondary)}
           </motion.button>
         </div>
 
-        {/* Stats Grid — 2 cols mobile, 4 cols desktop */}
-        <div
-          ref={statsRef}
-          className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 md:gap-4 max-w-4xl mx-auto"
-        >
+        {/* Stats */}
+        <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 md:gap-4 max-w-4xl mx-auto">
           {heroContent.stats.map((stat, i) => (
             <motion.div
               key={i}
-              className="text-center p-3 sm:p-4 bg-white/[0.03] backdrop-blur-md border border-white/[0.06] hover:border-gold-base/20 transition-colors"
-              whileHover={{
-                borderColor: "rgba(212,175,55,0.2)",
-              }}
+              className="text-center p-3 sm:p-4 bg-white/[0.05] backdrop-blur-md border border-white/[0.08] dark:bg-white/[0.03] dark:border-white/[0.06] hover:border-gold-base/20 transition-colors"
+              whileHover={{ borderColor: "rgba(212,175,55,0.2)" }}
               transition={{ duration: 0.3 }}
             >
               <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gold-base font-vip tracking-wider">
                 {stat.value}
               </div>
-              <div className="text-[9px] sm:text-[10px] md:text-[11px] font-mono tracking-wider text-zinc-500 mt-1 sm:mt-1.5 uppercase">
+              <div className="text-[9px] sm:text-[10px] md:text-[11px] font-mono tracking-wider text-zinc-300 dark:text-zinc-500 mt-1 sm:mt-1.5 uppercase">
                 {t(stat.label)}
               </div>
             </motion.div>
@@ -196,7 +179,7 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Bottom Fade — Smooth transition to next section */}
+      {/* Bottom Fade */}
       <div className="absolute bottom-0 left-0 right-0 h-16 sm:h-24 bg-gradient-to-t from-background to-transparent z-[5] pointer-events-none" />
 
       {/* Scroll Indicator */}
@@ -207,7 +190,7 @@ export function Hero() {
       >
         <button
           onClick={scrollToDestinations}
-          className="p-2 border border-white/10 bg-white/5 backdrop-blur-md text-zinc-500 hover:text-gold-base hover:border-gold-base/30 transition-all"
+          className="p-2 border border-white/10 bg-white/5 backdrop-blur-md text-zinc-400 hover:text-gold-base hover:border-gold-base/30 transition-all"
           aria-label="Scroll down"
         >
           <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5" />

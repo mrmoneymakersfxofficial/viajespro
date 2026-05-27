@@ -48,7 +48,7 @@ export function Navbar() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/[0.06]"
+            ? "dark:bg-[#0a0a0a]/80 bg-white/80 backdrop-blur-md border-b dark:border-white/[0.06] border-zinc-200/80"
             : "bg-transparent"
         }`}
       >
@@ -65,16 +65,15 @@ export function Navbar() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              {/* Using text logo since we may not have the VIP logo image yet */}
               <div className="flex items-center h-full">
                 <span className="font-vip text-lg sm:text-xl font-bold tracking-wider">
                   <span className="text-gold-gradient">VIAJEROS</span>
-                  <span className="text-white ml-1.5">VIP</span>
+                  <span className="dark:text-white text-zinc-900 ml-1.5">VIP</span>
                 </span>
               </div>
             </motion.a>
 
-            {/* Desktop Navigation - Minimalist VIP */}
+            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
                 <motion.a
@@ -84,7 +83,7 @@ export function Navbar() {
                     e.preventDefault();
                     handleNavClick(link.href);
                   }}
-                  className="text-[11px] font-mono tracking-[0.2em] text-zinc-500 hover:text-gold-base transition-colors uppercase"
+                  className="text-[11px] font-mono tracking-[0.2em] text-zinc-600 dark:text-zinc-500 hover:text-gold-base transition-colors uppercase"
                   whileHover={{ y: -1 }}
                   whileTap={{ y: 0 }}
                 >
@@ -95,11 +94,11 @@ export function Navbar() {
 
             {/* Right Controls */}
             <div className="flex items-center gap-2">
-              {/* Language Toggle */}
+              {/* Language */}
               {mounted && (
                 <motion.button
                   onClick={toggleLanguage}
-                  className="flex items-center gap-1.5 px-3 py-2 text-[11px] font-mono tracking-widest text-zinc-500 hover:text-gold-base transition-colors uppercase"
+                  className="flex items-center gap-1.5 px-3 py-2 text-[11px] font-mono tracking-widest text-zinc-600 dark:text-zinc-500 hover:text-gold-base transition-colors uppercase"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label="Toggle language"
@@ -109,11 +108,11 @@ export function Navbar() {
                 </motion.button>
               )}
 
-              {/* Theme Toggle */}
+              {/* Theme */}
               {mounted && (
                 <motion.button
                   onClick={toggleTheme}
-                  className="p-2 text-zinc-500 hover:text-gold-base transition-colors"
+                  className="p-2 text-zinc-600 dark:text-zinc-500 hover:text-gold-base transition-colors"
                   whileHover={{ rotate: 15 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label="Toggle theme"
@@ -126,7 +125,7 @@ export function Navbar() {
                 </motion.button>
               )}
 
-              {/* VIP Club Button */}
+              {/* CLUB VIP Button */}
               <motion.a
                 href="#contacto"
                 onClick={(e) => {
@@ -139,10 +138,10 @@ export function Navbar() {
                 CLUB VIP
               </motion.a>
 
-              {/* Mobile Menu Button */}
+              {/* Mobile Menu */}
               <motion.button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="md:hidden p-2 text-zinc-400 hover:text-gold-base transition-colors"
+                className="md:hidden p-2 text-zinc-700 dark:text-zinc-400 hover:text-gold-base transition-colors"
                 whileTap={{ scale: 0.9 }}
                 aria-label="Toggle menu"
               >
@@ -157,7 +156,7 @@ export function Navbar() {
         </nav>
       </motion.header>
 
-      {/* Mobile Navigation - VIP Style */}
+      {/* Mobile Navigation */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -176,27 +175,27 @@ export function Navbar() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -10 }}
               transition={{ duration: 0.2 }}
-              className="absolute top-16 left-4 right-4 bg-[#121212]/95 backdrop-blur-xl border border-white/[0.06] p-4"
+              className="absolute top-16 left-4 right-4 dark:bg-[#121212]/95 bg-white/95 backdrop-blur-xl border dark:border-white/[0.06] border-zinc-200 p-4"
             >
               <div className="flex flex-col gap-1">
                 {navLinks.map((link, i) => (
                   <motion.a
                     key={link.href}
                     href={link.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.05 }}
                     onClick={(e) => {
                       e.preventDefault();
                       handleNavClick(link.href);
                     }}
-                    className="px-4 py-3 text-sm font-mono tracking-[0.15em] text-zinc-400 hover:text-gold-base hover:bg-white/[0.03] transition-colors uppercase"
+                    className="px-4 py-3 text-sm font-mono tracking-[0.15em] text-zinc-700 dark:text-zinc-400 hover:text-gold-base dark:hover:bg-white/[0.03] hover:bg-zinc-100 transition-colors uppercase"
                   >
                     {t(link.label)}
                   </motion.a>
                 ))}
               </div>
-              <div className="mt-4 pt-4 border-t border-white/[0.06]">
+              <div className="mt-4 pt-4 border-t dark:border-white/[0.06] border-zinc-200">
                 <a
                   href="#contacto"
                   onClick={(e) => {
