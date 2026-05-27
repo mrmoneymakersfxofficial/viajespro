@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { aboutContent, footerContent, siteConfig } from "@/data/content";
+import { aboutContent, footerContent, siteConfig, buildWhatsAppUrl } from "@/data/content";
 import { useLanguage } from "@/context/language-context";
 import {
   MessageCircle,
@@ -76,9 +76,7 @@ export function Contact() {
     return () => { cancelled = true; };
   }, []);
 
-  const whatsappGeneral = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
-    language === "es" ? "Hola! Me gustaria obtener informacion sobre sus paquetes turisticos a Peru." : "Hello! I would like to get information about your tour packages to Peru."
-  )}`;
+  const whatsappGeneral = buildWhatsAppUrl({ type: "general", language });
 
   return (
     <section id="contacto" ref={sectionRef} className="relative py-14 sm:py-20 bg-background overflow-hidden">

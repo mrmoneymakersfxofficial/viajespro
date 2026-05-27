@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { heroContent, siteConfig, whatsappMessages } from "@/data/content";
+import { heroContent, buildWhatsAppUrl } from "@/data/content";
 import { useLanguage } from "@/context/language-context";
 import { MessageCircle, ChevronDown, Sparkles } from "lucide-react";
 import gsap from "gsap";
@@ -17,9 +17,7 @@ export function Hero() {
   const statsRef = useRef<HTMLDivElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
 
-  const whatsappUrl = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
-    whatsappMessages.general[language]
-  )}`;
+  const whatsappUrl = buildWhatsAppUrl({ type: "general", language });
 
   useEffect(() => {
     if (!heroRef.current) return;

@@ -4,9 +4,10 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { destinations, siteConfig, whatsappMessages } from "@/data/content";
+import { destinations, buildWhatsAppUrl } from "@/data/content";
 import { useLanguage } from "@/context/language-context";
-import { MessageCircle, Clock, X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
+import { useFavorites } from "@/context/favorites-context";
+import { MessageCircle, Clock, X, ChevronLeft, ChevronRight, ZoomIn, Heart } from "lucide-react";
 import gsap from "gsap";
 
 // ─── Lightbox ──────────────────────────────────────────────
@@ -49,7 +50,7 @@ function Lightbox({
         onTouchStart={(e) => { touchRef.current = e.touches[0].clientX; }}
         onTouchEnd={(e) => {
           const d = touchRef.current - e.changedTouches[0].clientX;
-          if (Math.abs(d) > 50) { d > 0 ? goNext() : goPrev(); }
+          if (Math.abs(d) > 50) { if (d > 0) goNext(); else goPrev(); }
         }}
       >
         <button onClick={onClose} className="absolute top-4 right-4 z-[110] flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center bg-white/[0.08] hover:bg-white/15 text-zinc-300 hover:text-gold-base transition-colors border border-white/[0.06]" aria-label="Cerrar"><X className="w-5 h-5" /></button>
@@ -82,9 +83,15 @@ function DestinationCard({ dest, language, index, onOpenLightbox }: {
   dest: typeof destinations[0]; language: "es" | "en"; index: number; onOpenLightbox: (id: string) => void;
 }) {
   const t = (item: { es: string; en: string }) => item[language];
-  const whatsappUrl = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
-    language === "es" ? `Hola! Deseo cotizar el paquete premium a: *${t(dest.title)}* ✈️` : `Hello! I want to quote the premium package for: *${t(dest.title)}* ✈️`
-  )}`;
+  const { toggleFavorite, isFavorite } = useFavorites();
+  const fav = isFavorite(dest.id);
+
+  const whatsappUrl = buildWhatsAppUrl({
+    type: "destination",
+    language,
+    destTitle: t(dest.title),
+    destPrice: dest.price,
+  });
 
   return (
     <motion.div
@@ -101,9 +108,18 @@ function DestinationCard({ dest, language, index, onOpenLightbox }: {
           <span className="border dark:border-white/[0.1] border-zinc-300 dark:bg-[#0a0a0a]/80 bg-white/80 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[11px] font-mono tracking-wider dark:text-zinc-300 text-zinc-700 flex items-center gap-1 sm:gap-1.5">
             <Clock className="w-2.5 h-2.5 sm:w-3 sm:h-3" />{dest.duration}
           </span>
-          <span className="border border-gold-base/30 dark:bg-[#0a0a0a]/80 bg-white/80 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[11px] font-mono tracking-wider font-bold text-gold-base">
-            {dest.price}
-          </span>
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={(e) => { e.stopPropagation(); toggleFavorite(dest.id); }}
+              className="border border-white/10 dark:bg-[#0a0a0a]/80 bg-white/80 backdrop-blur-md p-1.5 sm:p-2 hover:border-gold-base/30 transition-colors pointer-events-auto"
+              aria-label="Toggle favorite"
+            >
+              <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-colors ${fav ? "fill-gold-base text-gold-base" : "text-zinc-400"}`} />
+            </button>
+            <span className="border border-gold-base/30 dark:bg-[#0a0a0a]/80 bg-white/80 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[11px] font-mono tracking-wider font-bold text-gold-base">
+              {dest.price}
+            </span>
+          </div>
         </div>
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
           <div className="h-12 w-12 sm:h-14 sm:w-14 bg-gold-base/10 backdrop-blur-md flex items-center justify-center border border-gold-base/20"><ZoomIn className="w-5 h-5 sm:w-6 sm:h-6 text-gold-base" /></div>

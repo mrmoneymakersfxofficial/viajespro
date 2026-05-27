@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { features, testimonials, siteConfig } from "@/data/content";
+import { features, testimonials, siteConfig, buildWhatsAppUrl } from "@/data/content";
 import { useLanguage } from "@/context/language-context";
 import {
   ShieldCheck,
@@ -318,11 +318,7 @@ export function Testimonials() {
           whileTap={{ scale: 0.98 }}
         >
           <motion.a
-            href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
-              language === "es"
-                ? "Hola! Me gustaria ver testimonios de mas viajeros y conocer sus paquetes turisticos."
-                : "Hello! I would like to see more traveler testimonials and learn about your tour packages."
-            )}`}
+            href={buildWhatsAppUrl({ type: "general", language })}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 h-11 sm:h-12 bg-gradient-to-r from-gold-dark via-gold-base to-gold-light px-6 sm:px-8 text-[11px] sm:text-[12px] font-mono font-bold tracking-[0.2em] text-zinc-950 shadow-lg shadow-gold-dark/20"

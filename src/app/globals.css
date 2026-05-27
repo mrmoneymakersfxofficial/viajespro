@@ -142,6 +142,13 @@
     scroll-behavior: smooth;
     overflow-x: hidden;
   }
+
+  /* Bottom safe area for mobile tab bar */
+  @media (max-width: 767px) {
+    footer {
+      padding-bottom: 5rem;
+    }
+  }
 }
 
 /* ─── Section Transition Utility ───────────────────────── */

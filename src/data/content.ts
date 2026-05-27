@@ -377,7 +377,7 @@ export const aboutContent = {
   ],
 };
 
-// ─── WhatsApp Messages (Pre-filled) ────────────────────────
+// ─── WhatsApp Messages (Pre-filled) — Legacy ───────────────
 export const whatsappMessages = {
   general: {
     es: "¡Hola! 🌎 Me interesa obtener más información sobre sus paquetes turísticos a Perú. ¿Podrían ayudarme?",
@@ -392,6 +392,38 @@ export const whatsappMessages = {
     en: "Hello! ✈️ I would like to book a tour package. Please let me know the steps to follow.",
   },
 };
+
+// ─── WhatsApp Message Builder (Dynamic, Bilingual) ──────
+export function buildWhatsAppUrl({
+  type,
+  language,
+  destTitle,
+  destPrice,
+}: {
+  type: "destination" | "general";
+  language: "es" | "en";
+  destTitle?: string;
+  destPrice?: string;
+}): string {
+  const phone = siteConfig.whatsapp;
+  let text: string;
+
+  if (type === "destination" && destTitle && destPrice) {
+    if (language === "es") {
+      text = `¡Hola! ✈️%0A%0ADeseo solicitar información exclusiva sobre el viaje de lujo para:%0A👑 *${destTitle}*%0A%0A💸 *Inversión del paquete:* ${destPrice}%0A%0APor favor, me gustaría que un asesor VIP de *Viajeros VIP* me brinde el itinerario detallado y disponibilidad. ✨`;
+    } else {
+      text = `Hello! ✈️%0A%0AI would like to request exclusive information regarding the luxury package for:%0A👑 *${destTitle}*%0A%0A💸 *Package investment:* ${destPrice}%0A%0APlease, I would appreciate it if a VIP advisor from *Viajeros VIP* could provide me with the detailed itinerary and availability. ✨`;
+    }
+  } else {
+    if (language === "es") {
+      text = `¡Hola! ✨%0A%0AMe interesa unirme al selecto club de *Viajeros VIP* y diseñar una experiencia a medida en Perú. 🇵🇪%0A%0A¿Podría un asesor de la agencia ponerse en contacto conmigo para cotizar un itinerario personalizado? 👑`;
+    } else {
+      text = `Hello! ✨%0A%0AI am interested in joining the select club of *Viajeros VIP* and designing a custom experience in Peru. 🇵🇪%0A%0ACould an agency advisor contact me to quote a personalized itinerary? 👑`;
+    }
+  }
+
+  return `https://wa.me/${phone}?text=${text}`;
+}
 
 // ─── Footer Content ────────────────────────────────────────
 export const footerContent = {

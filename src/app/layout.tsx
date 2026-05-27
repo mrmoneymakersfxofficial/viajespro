@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display, Cinzel } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LanguageProvider } from "@/context/language-context";
+import { FavoritesProvider } from "@/context/favorites-context";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
@@ -107,7 +108,9 @@ export default function RootLayout({
           disableTransitionOnChange
           storageKey="viajeros-vip-theme"
         >
-          <LanguageProvider>{children}</LanguageProvider>
+          <LanguageProvider>
+            <FavoritesProvider>{children}</FavoritesProvider>
+          </LanguageProvider>
         </ThemeProvider>
         <Toaster />
       </body>

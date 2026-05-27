@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/language-context";
-import { siteConfig, destinations } from "@/data/content";
+import { useFavorites } from "@/context/favorites-context";
+import { siteConfig, destinations, buildWhatsAppUrl } from "@/data/content";
 import {
   MessageCircle,
   Clock,
@@ -19,6 +20,7 @@ import {
   ChevronRight,
   CheckCircle2,
   Calendar,
+  Heart,
 } from "lucide-react";
 import gsap from "gsap";
 
@@ -161,6 +163,8 @@ function Lightbox({
 // ─── Client Component ─────────────────────────────────────
 export default function DestinationPageClient({ dest }: { dest: Destination }) {
   const { language } = useLanguage();
+  const { toggleFavorite, isFavorite } = useFavorites();
+  const fav = isFavorite(dest.id);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const pageRef = useRef<HTMLDivElement>(null);
 
@@ -210,11 +214,12 @@ export default function DestinationPageClient({ dest }: { dest: Destination }) {
       .map((d) => ({ src: d.image, alt: t(d.title) })),
   ];
 
-  const whatsappUrl = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
-    language === "es"
-      ? `Hola! Deseo cotizar el paquete premium a: *${t(dest.title)}* \u2708\ufe0f`
-      : `Hello! I want to quote the premium package for: *${t(dest.title)}* \u2708\ufe0f`
-  )}`;
+  const whatsappUrl = buildWhatsAppUrl({
+    type: "destination",
+    language,
+    destTitle: t(dest.title),
+    destPrice: dest.price,
+  });
 
   return (
     <div ref={pageRef}>
@@ -364,14 +369,23 @@ export default function DestinationPageClient({ dest }: { dest: Destination }) {
             <div className="animate-in sticky top-24 space-y-4">
               {/* Price Card */}
               <div className="border border-border bg-card p-6">
-                <div className="mb-5">
-                  <span className="text-3xl sm:text-4xl font-bold text-gold-base font-vip tracking-wider">
-                    {dest.price}
-                  </span>
-                  <p className="text-[11px] text-muted-foreground mt-1 flex items-center gap-1.5 font-mono tracking-wider uppercase">
-                    <Clock className="w-3.5 h-3.5" />
-                    {dest.duration}
-                  </p>
+                <div className="mb-5 flex items-start justify-between">
+                  <div>
+                    <span className="text-3xl sm:text-4xl font-bold text-gold-base font-vip tracking-wider">
+                      {dest.price}
+                    </span>
+                    <p className="text-[11px] text-muted-foreground mt-1 flex items-center gap-1.5 font-mono tracking-wider uppercase">
+                      <Clock className="w-3.5 h-3.5" />
+                      {dest.duration}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => toggleFavorite(dest.id)}
+                    className="p-2 border border-border hover:border-gold-base/30 transition-colors"
+                    aria-label="Toggle favorite"
+                  >
+                    <Heart className={`w-5 h-5 transition-colors ${fav ? "fill-gold-base text-gold-base" : "text-zinc-500"}`} />
+                  </button>
                 </div>
 
                 <div className="space-y-3 mb-6">

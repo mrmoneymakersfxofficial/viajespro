@@ -24,6 +24,15 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
   const toggleLanguage = () => {
     setLanguage(language === "es" ? "en" : "es");
   };
@@ -138,78 +147,91 @@ export function Navbar() {
                 CLUB VIP
               </motion.a>
 
-              {/* Mobile Menu */}
+              {/* Mobile Menu Toggle */}
               <motion.button
                 onClick={() => setMobileOpen(!mobileOpen)}
                 className="md:hidden p-2 text-zinc-700 dark:text-zinc-400 hover:text-gold-base transition-colors"
                 whileTap={{ scale: 0.9 }}
                 aria-label="Toggle menu"
               >
-                {mobileOpen ? (
-                  <X className="w-5 h-5" />
-                ) : (
-                  <Menu className="w-5 h-5" />
-                )}
+                <Menu className="w-5 h-5" />
               </motion.button>
             </div>
           </div>
         </nav>
       </motion.header>
 
-      {/* Mobile Navigation */}
+      {/* Full-Screen Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 md:hidden"
-          >
-            <div
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-[59] bg-black/60 backdrop-blur-sm md:hidden"
               onClick={() => setMobileOpen(false)}
             />
+            {/* Full-screen panel */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: -10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className="absolute top-16 left-4 right-4 dark:bg-[#121212]/95 bg-white/95 backdrop-blur-xl border dark:border-white/[0.06] border-zinc-200 p-4"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
+              className="fixed inset-0 z-[60] bg-[#0a0a0a] md:hidden overflow-y-auto"
             >
-              <div className="flex flex-col gap-1">
+              {/* Subtle radial gold gradient */}
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.02),transparent_70%)] pointer-events-none" />
+
+              {/* Close button */}
+              <div className="relative flex justify-end p-5">
+                <button onClick={() => setMobileOpen(false)} className="p-2 text-zinc-400 hover:text-gold-base transition-colors">
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+
+              {/* Logo */}
+              <div className="relative px-8 mb-12">
+                <span className="font-vip text-2xl font-bold tracking-wider">
+                  <span className="text-gold-gradient">VIAJEROS</span>
+                  <span className="text-white ml-2">VIP</span>
+                </span>
+              </div>
+
+              {/* Links with stagger */}
+              <nav className="relative px-8 flex flex-col gap-2">
                 {navLinks.map((link, i) => (
                   <motion.a
                     key={link.href}
                     href={link.href}
-                    initial={{ opacity: 0, y: -10 }}
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick(link.href);
-                    }}
-                    className="px-4 py-3 text-sm font-mono tracking-[0.15em] text-zinc-700 dark:text-zinc-400 hover:text-gold-base dark:hover:bg-white/[0.03] hover:bg-zinc-100 transition-colors uppercase"
+                    transition={{ delay: 0.2 + i * 0.08, duration: 0.4 }}
+                    onClick={(e) => { e.preventDefault(); setMobileOpen(false); handleNavClick(link.href); }}
+                    className="py-3 text-lg sm:text-xl font-vip tracking-[0.3em] text-zinc-300 hover:text-gold-base transition-colors uppercase border-b border-white/[0.04]"
                   >
                     {t(link.label)}
                   </motion.a>
                 ))}
-              </div>
-              <div className="mt-4 pt-4 border-t dark:border-white/[0.06] border-zinc-200">
-                <a
+              </nav>
+
+              {/* Club VIP CTA at bottom */}
+              <div className="relative px-8 mt-10">
+                <motion.a
                   href="#contacto"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setMobileOpen(false);
-                    handleNavClick("#contacto");
-                  }}
-                  className="flex h-11 items-center justify-center bg-gradient-to-r from-gold-dark via-gold-base to-gold-light text-[11px] font-mono font-bold tracking-[0.2em] text-zinc-950"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, duration: 0.4 }}
+                  onClick={(e) => { e.preventDefault(); setMobileOpen(false); handleNavClick("#contacto"); }}
+                  className="flex h-12 items-center justify-center bg-gradient-to-r from-gold-dark via-gold-base to-gold-light text-[11px] font-mono font-bold tracking-[0.2em] text-zinc-950"
                 >
                   CLUB VIP
-                </a>
+                </motion.a>
               </div>
             </motion.div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
