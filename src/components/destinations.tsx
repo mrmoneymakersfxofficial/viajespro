@@ -85,7 +85,7 @@ function Lightbox({
         {images.length > 1 && (
           <button
             onClick={(e) => { e.stopPropagation(); goPrev(); }}
-            className="absolute left-3 sm:left-6 z-[110] flex h-11 w-11 items-center justify-center bg-white/[0.06] hover:bg-white/10 text-zinc-400 hover:text-gold-base transition-colors border border-white/[0.06]"
+            className="absolute left-2 sm:left-6 z-[110] flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center bg-white/[0.06] hover:bg-white/10 text-zinc-400 hover:text-gold-base transition-colors border border-white/[0.06]"
             aria-label="Anterior"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -98,7 +98,7 @@ function Lightbox({
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.92 }}
           transition={{ type: "spring", damping: 28, stiffness: 300 }}
-          className="relative max-w-6xl w-full mx-4 aspect-[4/3] sm:aspect-video overflow-hidden border border-white/[0.06]"
+          className="relative max-w-6xl w-full mx-2 sm:mx-4 aspect-[4/3] sm:aspect-video overflow-hidden border border-white/[0.06]"
           onClick={(e) => e.stopPropagation()}
         >
           <Image
@@ -114,7 +114,7 @@ function Lightbox({
         {images.length > 1 && (
           <button
             onClick={(e) => { e.stopPropagation(); goNext(); }}
-            className="absolute right-3 sm:right-6 z-[110] flex h-11 w-11 items-center justify-center bg-white/[0.06] hover:bg-white/10 text-zinc-400 hover:text-gold-base transition-colors border border-white/[0.06]"
+            className="absolute right-2 sm:right-6 z-[110] flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center bg-white/[0.06] hover:bg-white/10 text-zinc-400 hover:text-gold-base transition-colors border border-white/[0.06]"
             aria-label="Siguiente"
           >
             <ChevronRight className="w-5 h-5" />
@@ -165,7 +165,7 @@ function DestinationCard({
 
   return (
     <motion.div
-      className="destination-card group overflow-hidden border border-white/[0.06] bg-[#121212] transition-all duration-500 hover:border-gold-dark/30"
+      className="destination-card group overflow-hidden border border-white/[0.06] bg-[#121212] transition-all duration-500 hover:border-gold-dark/30 w-full"
       whileHover={{ y: -4 }}
       transition={{ duration: 0.3 }}
     >
@@ -178,7 +178,7 @@ function DestinationCard({
           src={dest.image}
           alt={t(dest.title)}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
           priority={index === 0}
         />
@@ -187,50 +187,50 @@ function DestinationCard({
         <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-black/20 to-transparent" />
 
         {/* Floating badges */}
-        <div className="absolute inset-x-0 top-0 p-3 sm:p-4 flex justify-between items-start pointer-events-none">
-          <span className="border border-white/[0.1] bg-[#0a0a0a]/80 backdrop-blur-md px-2.5 py-1 text-[11px] sm:text-xs font-mono tracking-wider text-zinc-300 flex items-center gap-1.5">
-            <Clock className="w-3 h-3" />
+        <div className="absolute inset-x-0 top-0 p-2.5 sm:p-4 flex justify-between items-start pointer-events-none">
+          <span className="border border-white/[0.1] bg-[#0a0a0a]/80 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[11px] font-mono tracking-wider text-zinc-300 flex items-center gap-1 sm:gap-1.5">
+            <Clock className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
             {dest.duration}
           </span>
-          <span className="border border-gold-base/30 bg-[#0a0a0a]/80 backdrop-blur-md px-2.5 py-1 text-[11px] sm:text-xs font-mono tracking-wider font-bold text-gold-base">
+          <span className="border border-gold-base/30 bg-[#0a0a0a]/80 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[11px] font-mono tracking-wider font-bold text-gold-base">
             {dest.price}
           </span>
         </div>
 
         {/* Zoom icon on hover */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-          <div className="h-14 w-14 bg-gold-base/10 backdrop-blur-md flex items-center justify-center border border-gold-base/20">
-            <ZoomIn className="w-6 h-6 text-gold-base" />
+          <div className="h-12 w-12 sm:h-14 sm:w-14 bg-gold-base/10 backdrop-blur-md flex items-center justify-center border border-gold-base/20">
+            <ZoomIn className="w-5 h-5 sm:w-6 sm:h-6 text-gold-base" />
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="p-5 sm:p-6">
-        {/* Title - VIP Style */}
-        <h3 className="text-lg sm:text-xl font-vip tracking-wider text-zinc-100 uppercase group-hover:text-gold-light transition-colors">
+      <div className="p-4 sm:p-5 lg:p-6">
+        {/* Title */}
+        <h3 className="text-base sm:text-lg lg:text-xl font-vip tracking-wider text-zinc-100 uppercase group-hover:text-gold-light transition-colors">
           {t(dest.title)}
         </h3>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 mt-2.5 mb-5">
+        <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-2 sm:mt-2.5 mb-4 sm:mb-5">
           {t(dest.highlights)
             .slice(0, 3)
             .map((tag, tagIdx) => (
               <span
                 key={tagIdx}
-                className="bg-white/[0.03] border border-white/[0.04] px-2 py-0.5 text-[10px] font-mono tracking-wider text-zinc-500"
+                className="bg-white/[0.03] border border-white/[0.04] px-1.5 sm:px-2 py-0.5 text-[9px] sm:text-[10px] font-mono tracking-wider text-zinc-500"
               >
                 {tag}
               </span>
             ))}
         </div>
 
-        {/* CTA Buttons - VIP */}
-        <div className="grid grid-cols-2 gap-3">
+        {/* CTA Buttons */}
+        <div className="grid grid-cols-2 gap-2 sm:gap-3">
           <Link
             href={`/destinos/${dest.slug[language]}`}
-            className="flex h-10 sm:h-11 items-center justify-center border border-white/[0.06] bg-white/[0.02] text-[11px] font-mono tracking-[0.15em] text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-200 transition-colors uppercase"
+            className="flex h-10 sm:h-11 items-center justify-center border border-white/[0.06] bg-white/[0.02] text-[10px] sm:text-[11px] font-mono tracking-[0.12em] text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-200 transition-colors uppercase"
           >
             {language === "es" ? "Itinerario" : "Itinerary"}
           </Link>
@@ -238,9 +238,9 @@ function DestinationCard({
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-10 sm:h-11 items-center justify-center gap-1.5 bg-gold-base text-[11px] font-mono tracking-[0.15em] font-bold text-zinc-950 hover:bg-gold-light transition-colors uppercase"
+            className="flex h-10 sm:h-11 items-center justify-center gap-1 sm:gap-1.5 bg-gold-base text-[10px] sm:text-[11px] font-mono tracking-[0.12em] font-bold text-zinc-950 hover:bg-gold-light transition-colors uppercase"
           >
-            <MessageCircle className="w-3.5 h-3.5" />
+            <MessageCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
             {language === "es" ? "Reservar" : "Book"}
           </a>
         </div>
@@ -270,7 +270,7 @@ export function Destinations() {
 
       gsap.fromTo(
         titleRef.current,
-        { opacity: 0, y: 60 },
+        { opacity: 0, y: 40 },
         {
           opacity: 1,
           y: 0,
@@ -288,7 +288,7 @@ export function Destinations() {
         const cards = gridRef.current.querySelectorAll(".destination-card");
         gsap.fromTo(
           cards,
-          { opacity: 0, y: 80, scale: 0.95 },
+          { opacity: 0, y: 60, scale: 0.97 },
           {
             opacity: 1,
             y: 0,
@@ -298,7 +298,7 @@ export function Destinations() {
             ease: "power3.out",
             scrollTrigger: {
               trigger: gridRef.current,
-              start: "top 80%",
+              start: "top 85%",
               toggleActions: "play none none none",
             },
           }
@@ -324,28 +324,28 @@ export function Destinations() {
     <section
       id="destinos"
       ref={sectionRef}
-      className="relative py-16 sm:py-20 lg:py-28 bg-background overflow-hidden"
+      className="relative py-14 sm:py-20 lg:py-28 bg-background overflow-hidden"
     >
       {/* Gold accent line at top */}
-      <div className="divider-gold mb-16" />
+      <div className="divider-gold mb-12 sm:mb-16" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
-        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-          <span className="inline-block text-[11px] font-mono tracking-[0.3em] text-gold-base uppercase mb-4">
+        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-8 sm:mb-14">
+          <span className="inline-block text-[10px] sm:text-[11px] font-mono tracking-[0.3em] text-gold-base uppercase mb-3 sm:mb-4">
             {language === "es"
               ? "Destinos Exclusivos"
               : "Exclusive Destinations"}
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-vip tracking-wider text-foreground mb-4 uppercase">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-vip tracking-wider text-foreground mb-3 sm:mb-4 uppercase">
             {language === "es"
               ? "Paquetes Turisticos"
               : "Tour Packages"}
-            <span className="text-gold-gradient ml-3">
-              {language === "es" ? "Vip" : "Vip"}
+            <span className="text-gold-gradient ml-2 sm:ml-3">
+              VIP
             </span>
           </h2>
-          <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto font-mono">
+          <p className="text-xs sm:text-sm lg:text-base text-muted-foreground max-w-xl mx-auto font-mono px-2">
             {language === "es"
               ? "Explora nuestra seleccion de destinos cuidadosamente disenados para ofrecerte la mejor experiencia de viaje en Peru."
               : "Explore our selection of destinations carefully designed to offer you the best travel experience in Peru."}
@@ -355,7 +355,7 @@ export function Destinations() {
         {/* Destinations Grid */}
         <div
           ref={gridRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6"
         >
           {destinations.map((dest, index) => (
             <DestinationCard

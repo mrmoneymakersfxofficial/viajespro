@@ -41,7 +41,7 @@ export function Features() {
 
       gsap.fromTo(
         titleRef.current,
-        { opacity: 0, y: 50 },
+        { opacity: 0, y: 40 },
         {
           opacity: 1,
           y: 0,
@@ -58,10 +58,10 @@ export function Features() {
       if (imageRef.current) {
         gsap.fromTo(
           imageRef.current,
-          { opacity: 0, x: -60, scale: 0.9 },
+          { opacity: 0, y: 40, scale: 0.95 },
           {
             opacity: 1,
-            x: 0,
+            y: 0,
             scale: 1,
             duration: 1,
             ease: "power3.out",
@@ -78,17 +78,16 @@ export function Features() {
         const items = featuresRef.current.querySelectorAll(".feature-item");
         gsap.fromTo(
           items,
-          { opacity: 0, y: 40, x: 30 },
+          { opacity: 0, y: 30 },
           {
             opacity: 1,
             y: 0,
-            x: 0,
             duration: 0.7,
             stagger: 0.15,
             ease: "power3.out",
             scrollTrigger: {
               trigger: featuresRef.current,
-              start: "top 80%",
+              start: "top 85%",
               toggleActions: "play none none none",
             },
           }
@@ -103,15 +102,15 @@ export function Features() {
     <section
       id="nosotros"
       ref={sectionRef}
-      className="relative py-16 sm:py-20 lg:py-28 bg-muted/30"
+      className="relative py-14 sm:py-20 lg:py-28 bg-background overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
-        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-14">
-          <span className="inline-block text-[11px] font-mono tracking-[0.3em] text-gold-base uppercase mb-4">
+        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <span className="inline-block text-[10px] sm:text-[11px] font-mono tracking-[0.3em] text-gold-base uppercase mb-3 sm:mb-4">
             {language === "es" ? "Por Que Elegirnos" : "Why Choose Us"}
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-vip tracking-wider text-foreground uppercase">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-vip tracking-wider text-foreground uppercase">
             {language === "es"
               ? "Experiencia Premium"
               : "Premium Experience"}
@@ -119,7 +118,7 @@ export function Features() {
         </div>
 
         {/* Features + Image Layout */}
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
           {/* Left: Image */}
           <div ref={imageRef} className="relative">
             <div className="relative overflow-hidden border border-white/[0.06]">
@@ -135,17 +134,17 @@ export function Features() {
             </div>
             {/* Floating Stats Card */}
             <motion.div
-              className="absolute -bottom-6 -right-4 sm:right-4 bg-[#121212] p-4 shadow-xl border border-white/[0.06]"
+              className="absolute -bottom-4 -right-2 sm:right-4 bg-[#121212] p-3 sm:p-4 shadow-xl border border-white/[0.06]"
               whileHover={{ y: -4 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 border border-gold-base/30 flex items-center justify-center">
-                  <Star className="w-6 h-6 text-gold-base" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 border border-gold-base/30 flex items-center justify-center">
+                  <Star className="w-5 h-5 sm:w-6 sm:h-6 text-gold-base" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-gold-base font-vip tracking-wider">4.9/5</div>
-                  <div className="text-[10px] font-mono tracking-wider text-zinc-500 uppercase">
+                  <div className="text-xl sm:text-2xl font-bold text-gold-base font-vip tracking-wider">4.9/5</div>
+                  <div className="text-[9px] sm:text-[10px] font-mono tracking-wider text-zinc-500 uppercase">
                     {language === "es" ? "2,000+ resenas" : "2,000+ reviews"}
                   </div>
                 </div>
@@ -154,23 +153,23 @@ export function Features() {
           </div>
 
           {/* Right: Features Grid */}
-          <div ref={featuresRef} className="grid gap-4">
+          <div ref={featuresRef} className="grid gap-3 sm:gap-4">
             {features.map((feature) => {
               const Icon = iconMap[feature.icon] || Star;
               return (
                 <motion.div
                   key={feature.icon}
-                  className="feature-item group flex gap-4 p-5 bg-card border border-border hover:border-gold-dark/20 transition-all duration-300"
+                  className="feature-item group flex gap-3 sm:gap-4 p-3.5 sm:p-5 bg-card border border-border hover:border-gold-dark/20 transition-all duration-300"
                   whileHover={{ x: 4 }}
                 >
-                  <div className="flex-shrink-0 w-12 h-12 border border-gold-base/20 flex items-center justify-center group-hover:border-gold-base/40 transition-colors">
-                    <Icon className="w-5 h-5 text-gold-base" />
+                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 border border-gold-base/20 flex items-center justify-center group-hover:border-gold-base/40 transition-colors">
+                    <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-gold-base" />
                   </div>
                   <div>
-                    <h3 className="font-vip tracking-wider text-sm font-bold mb-1 uppercase">
+                    <h3 className="font-vip tracking-wider text-xs sm:text-sm font-bold mb-1 uppercase">
                       {t(feature.title)}
                     </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                       {t(feature.description)}
                     </p>
                   </div>
@@ -205,7 +204,7 @@ export function Testimonials() {
 
       gsap.fromTo(
         titleRef.current,
-        { opacity: 0, y: 50 },
+        { opacity: 0, y: 40 },
         {
           opacity: 1,
           y: 0,
@@ -223,7 +222,7 @@ export function Testimonials() {
         const cards = cardsRef.current.querySelectorAll(".testimonial-card");
         gsap.fromTo(
           cards,
-          { opacity: 0, y: 60 },
+          { opacity: 0, y: 40 },
           {
             opacity: 1,
             y: 0,
@@ -232,7 +231,7 @@ export function Testimonials() {
             ease: "power3.out",
             scrollTrigger: {
               trigger: cardsRef.current,
-              start: "top 80%",
+              start: "top 85%",
               toggleActions: "play none none none",
             },
           }
@@ -247,63 +246,63 @@ export function Testimonials() {
     <section
       id="experiencias"
       ref={sectionRef}
-      className="relative py-16 sm:py-20 lg:py-28 bg-background"
+      className="relative py-14 sm:py-20 lg:py-28 bg-background overflow-hidden"
     >
       {/* Gold divider */}
-      <div className="divider-gold max-w-7xl mx-auto mb-16" />
+      <div className="divider-gold max-w-7xl mx-auto mb-12 sm:mb-16" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
-        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-14">
-          <span className="inline-block text-[11px] font-mono tracking-[0.3em] text-gold-base uppercase mb-4">
+        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <span className="inline-block text-[10px] sm:text-[11px] font-mono tracking-[0.3em] text-gold-base uppercase mb-3 sm:mb-4">
             {language === "es" ? "Testimonios" : "Testimonials"}
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-vip tracking-wider text-foreground uppercase">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-vip tracking-wider text-foreground uppercase">
             {language === "es"
               ? "Lo Que Dicen Nuestros Viajeros"
               : "What Our Travelers Say"}
           </h2>
         </div>
 
-        {/* Testimonials Grid - 1/2/3 */}
+        {/* Testimonials Grid — 1/2/3 */}
         <div
           ref={cardsRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6"
         >
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
-              className="testimonial-card group p-6 bg-card border border-border hover:border-gold-dark/20 transition-all duration-500"
+              className="testimonial-card group p-4 sm:p-6 bg-card border border-border hover:border-gold-dark/20 transition-all duration-500"
               whileHover={{ y: -3 }}
             >
               {/* Gold quote mark */}
-              <span className="block text-3xl text-gold-base/30 font-serif leading-none mb-4 select-none">&ldquo;</span>
+              <span className="block text-2xl sm:text-3xl text-gold-base/30 font-serif leading-none mb-3 sm:mb-4 select-none">&ldquo;</span>
 
               {/* Stars */}
-              <div className="flex gap-1 mb-4">
+              <div className="flex gap-0.5 sm:gap-1 mb-3 sm:mb-4">
                 {Array.from({ length: testimonial.rating }).map((_, i) => (
                   <Star
                     key={i}
-                    className="w-3.5 h-3.5 text-gold-base"
+                    className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-gold-base"
                   />
                 ))}
               </div>
 
               {/* Text */}
-              <p className="text-foreground/80 text-sm mb-6 leading-relaxed italic">
+              <p className="text-foreground/80 text-xs sm:text-sm mb-4 sm:mb-6 leading-relaxed italic">
                 &ldquo;{t(testimonial.text)}&rdquo;
               </p>
 
               {/* Author */}
-              <div className="flex items-center gap-3 pt-4 border-t border-border">
-                <div className="w-10 h-10 bg-gold-base/10 border border-gold-base/20 flex items-center justify-center text-gold-base font-bold text-xs font-vip tracking-wider">
+              <div className="flex items-center gap-2.5 sm:gap-3 pt-3 sm:pt-4 border-t border-border">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gold-base/10 border border-gold-base/20 flex items-center justify-center text-gold-base font-bold text-[10px] sm:text-xs font-vip tracking-wider">
                   {testimonial.avatar}
                 </div>
                 <div>
-                  <div className="font-semibold text-sm">
+                  <div className="font-semibold text-xs sm:text-sm">
                     {testimonial.name}
                   </div>
-                  <div className="text-[10px] font-mono tracking-wider text-muted-foreground uppercase">
+                  <div className="text-[9px] sm:text-[10px] font-mono tracking-wider text-muted-foreground uppercase">
                     {t(testimonial.location)}
                   </div>
                 </div>
@@ -314,7 +313,7 @@ export function Testimonials() {
 
         {/* CTA */}
         <motion.div
-          className="mt-12 text-center"
+          className="mt-10 sm:mt-12 text-center"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
@@ -326,7 +325,7 @@ export function Testimonials() {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 h-12 bg-gradient-to-r from-gold-dark via-gold-base to-gold-light px-8 text-[12px] font-mono font-bold tracking-[0.2em] text-zinc-950 shadow-lg shadow-gold-dark/20"
+            className="inline-flex items-center gap-2 h-11 sm:h-12 bg-gradient-to-r from-gold-dark via-gold-base to-gold-light px-6 sm:px-8 text-[11px] sm:text-[12px] font-mono font-bold tracking-[0.2em] text-zinc-950 shadow-lg shadow-gold-dark/20"
           >
             <MessageCircle className="w-4 h-4" />
             {language === "es"

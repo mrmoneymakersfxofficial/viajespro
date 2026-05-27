@@ -56,7 +56,7 @@ export function Hero() {
         "-=0.3"
       );
 
-    // Parallax effect on scroll — safe Y-only transforms
+    // Parallax — Y-only safe transforms
     const handleScroll = () => {
       if (!heroRef.current) return;
       const scrollY = window.scrollY;
@@ -106,14 +106,14 @@ export function Hero() {
           />
         </div>
         {/* Dark VIP gradient overlays */}
-        <div className="hero-overlay absolute inset-0 w-full will-change-transform bg-gradient-to-b from-black/70 via-black/50 to-[#0a0a0a]" />
+        <div className="hero-overlay absolute inset-0 w-full will-change-transform bg-gradient-to-b from-black/70 via-black/50 to-background" />
         <div className="absolute inset-0 w-full bg-gradient-to-r from-black/60 via-transparent to-black/40" />
         {/* Gold ambient shimmer */}
         <div className="absolute inset-0 w-full bg-[radial-gradient(ellipse_at_top_right,rgba(212,175,55,0.08),transparent_50%)]" />
       </div>
 
       {/* Content — Mobile-First */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 pb-16 sm:pt-24 sm:pb-20">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 pb-20 sm:pt-24 sm:pb-24">
         {/* Badge */}
         <motion.div
           ref={badgeRef}
@@ -123,7 +123,7 @@ export function Hero() {
           {t(heroContent.badge)}
         </motion.div>
 
-        {/* Title — Mobile First Typography */}
+        {/* Title */}
         <h1
           ref={titleRef}
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-[1.1]"
@@ -136,7 +136,7 @@ export function Hero() {
           </span>
         </h1>
 
-        {/* Subtitle — Silver/Plata for body text */}
+        {/* Subtitle — Plata */}
         <p
           ref={subtitleRef}
           className="max-w-lg sm:max-w-2xl mx-auto text-sm sm:text-base text-zinc-300 mb-8 sm:mb-10 leading-relaxed"
@@ -144,10 +144,10 @@ export function Hero() {
           {t(heroContent.subtitle)}
         </p>
 
-        {/* CTA Buttons — Full width on mobile, horizontal on desktop */}
+        {/* CTA Buttons — Full width mobile, horizontal desktop */}
         <div
           ref={ctaRef}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-16 px-0 sm:px-0"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-16 w-full"
         >
           <motion.a
             href={whatsappUrl}
@@ -195,6 +195,9 @@ export function Hero() {
           ))}
         </div>
       </div>
+
+      {/* Bottom Fade — Smooth transition to next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-16 sm:h-24 bg-gradient-to-t from-background to-transparent z-[5] pointer-events-none" />
 
       {/* Scroll Indicator */}
       <motion.div
