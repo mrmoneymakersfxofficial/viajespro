@@ -57,12 +57,12 @@ export function Navbar() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
           scrolled
-            ? "dark:bg-zinc-950/70 bg-white/70 backdrop-blur-xl border-b dark:border-white/[0.04] border-zinc-200/50 shadow-[0_1px_0_0_rgba(255,255,255,0.03)_inset]"
+            ? "dark:bg-zinc-950/70 bg-zinc-50/80 backdrop-blur-xl border-b dark:border-white/[0.04] border-zinc-200/50 dark:shadow-[0_1px_0_0_rgba(255,255,255,0.03)_inset]"
             : "bg-transparent border-b border-transparent"
         }`}
       >
         <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-20">
+          <div className="flex items-center justify-between h-14 sm:h-16 lg:h-[68px]">
             {/* Logo */}
             <motion.a
               href="#inicio"
@@ -70,12 +70,12 @@ export function Navbar() {
                 e.preventDefault();
                 handleNavClick("#inicio");
               }}
-              className="relative w-40 h-12 sm:w-44 transition-transform active:scale-[0.98]"
+              className="relative transition-transform active:scale-[0.98]"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               <div className="flex items-center h-full">
-                <span className="font-vip text-lg sm:text-xl font-bold tracking-wider">
+                <span className="font-vip text-base sm:text-lg font-bold tracking-wider">
                   <span className="text-gold-gradient">VIAJEROS</span>
                   <span className="dark:text-white text-zinc-900 ml-1.5">VIP</span>
                 </span>
@@ -141,7 +141,7 @@ export function Navbar() {
                   e.preventDefault();
                   handleNavClick("#contacto");
                 }}
-                className="hidden sm:inline-flex h-9 items-center justify-center bg-gradient-to-r from-gold-dark via-gold-base to-gold-light px-5 text-[11px] font-mono font-bold tracking-[0.2em] text-zinc-950 shadow-lg shadow-gold-dark/10 transition-transform duration-300 hover:scale-105 active:scale-[0.98]"
+                className="hidden sm:inline-flex h-9 items-center justify-center bg-gradient-to-r from-gold-dark via-gold-base to-gold-light px-4 text-[10px] font-mono font-bold tracking-[0.18em] text-zinc-950 shadow-lg shadow-gold-dark/10 transition-transform duration-300 hover:scale-105 active:scale-[0.98]"
                 whileTap={{ scale: 0.95 }}
               >
                 CLUB VIP

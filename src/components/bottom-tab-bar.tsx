@@ -377,7 +377,7 @@ export function BottomTabBar() {
     <>
       {/* Tab Bar */}
       <div className="fixed bottom-0 inset-x-0 z-50 md:hidden">
-        <div className="bg-zinc-950/90 backdrop-blur-lg border-t border-zinc-900 pb-[env(safe-area-inset-bottom)]">
+        <div className="dark:bg-zinc-950/90 bg-zinc-50/85 backdrop-blur-lg dark:border-t dark:border-zinc-900 border-t border-zinc-200/80 pb-[env(safe-area-inset-bottom)]">
           <div className="flex justify-around items-center h-16 px-1">
             {tabs.map((tab) => {
               if (tab.isCenter) {
@@ -388,10 +388,10 @@ export function BottomTabBar() {
                     whileTap={{ scale: 0.9 }}
                     className="flex flex-col items-center justify-center gap-0.5 -mt-5"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gold-dark via-gold-base to-gold-light flex items-center justify-center shadow-lg shadow-gold-dark/30">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gold-dark via-gold-base to-gold-light flex items-center justify-center dark:shadow-lg dark:shadow-gold-dark/30 shadow-md shadow-gold-dark/10">
                       <tab.icon className="w-5 h-5 text-zinc-950" />
                     </div>
-                    <span className="text-[9px] font-mono tracking-wider text-gold-base font-semibold">
+                    <span className="text-[9px] font-mono tracking-wider text-gold-base dark:text-gold-base font-semibold">
                       WhatsApp
                     </span>
                   </motion.button>
@@ -405,14 +405,14 @@ export function BottomTabBar() {
                   className="flex flex-col items-center justify-center gap-0.5 relative py-1"
                 >
                   <div className="relative">
-                    <tab.icon className="w-5 h-5 text-zinc-500" />
+                    <tab.icon className="w-5 h-5 dark:text-zinc-500 text-zinc-600" />
                     {tab.badge && (
-                      <span className="absolute -top-1.5 -right-2 bg-gold-base text-zinc-950 text-[8px] font-bold w-4 h-4 flex items-center justify-center">
+                      <span className="absolute -top-1.5 -right-2 bg-gold-base text-zinc-950 text-[8px] font-bold w-4 h-4 flex items-center justify-center dark:shadow-sm shadow-sm shadow-gold-dark/15">
                         {tab.badge}
                       </span>
                     )}
                   </div>
-                  <span className="text-[9px] font-mono tracking-wider text-zinc-500">
+                  <span className="text-[9px] font-mono tracking-wider dark:text-zinc-500 text-zinc-600">
                     {tab.label}
                   </span>
                 </motion.button>
