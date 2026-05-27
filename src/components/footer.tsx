@@ -325,18 +325,17 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-background/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-background/50">{t(footerContent.copyright)}</p>
-          <p className="text-xs text-background/40">
-            {language === "es" ? "Desarrollado por" : "Developed by"}{" "}
-            <a
-              href={siteConfig.provider.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-emerald-400 hover:text-emerald-300 transition-colors"
-            >
+          <a
+            href={siteConfig.provider.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-background/50 hover:text-emerald-400 transition-colors group"
+          >
+            {language === "es" ? "Diseño y desarrollo por" : "Design and development by"}{" "}
+            <span className="font-semibold text-emerald-400 group-hover:text-emerald-300 transition-colors">
               {siteConfig.provider.name}
-            </a>{" "}
-            — {t(siteConfig.provider.slogan)}
-          </p>
+            </span>
+          </a>
         </div>
       </div>
     </footer>

@@ -76,7 +76,7 @@ export const siteConfig = {
     tiktok: "https://tiktok.com",
   },
   provider: {
-    name: "Fast Page Pro",
+    name: "fastpagepro.com",
     url: "https://www.fastpagepro.com",
     developer: "Fabio Herrera",
     slogan: {
