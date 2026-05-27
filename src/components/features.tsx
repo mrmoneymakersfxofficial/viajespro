@@ -5,14 +5,12 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { features, testimonials, siteConfig } from "@/data/content";
 import { useLanguage } from "@/context/language-context";
-import { Badge } from "@/components/ui/badge";
 import {
   ShieldCheck,
   Clock,
   Wallet,
   Star,
   MessageCircle,
-  Quote,
 } from "lucide-react";
 import gsap from "gsap";
 
@@ -105,46 +103,29 @@ export function Features() {
     <section
       id="nosotros"
       ref={sectionRef}
-      className="relative py-20 sm:py-28 lg:py-36 bg-muted/50"
+      className="relative py-16 sm:py-20 lg:py-28 bg-muted/30"
     >
-      {/* Decorative */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
-        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-16">
-          <Badge
-            variant="outline"
-            className="mb-4 px-4 py-1.5 text-sm border-emerald-500/30 text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10"
-          >
+        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-14">
+          <span className="inline-block text-[11px] font-mono tracking-[0.3em] text-gold-base uppercase mb-4">
+            {language === "es" ? "Por Que Elegirnos" : "Why Choose Us"}
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-vip tracking-wider text-foreground uppercase">
             {language === "es"
-              ? "✨ Por Qué Elegirnos"
-              : "✨ Why Choose Us"}
-          </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 tracking-tight">
-            {language === "es"
-              ? "Tu Viaje en las Mejores Manos"
-              : "Your Trip in the Best Hands"}
+              ? "Experiencia Premium"
+              : "Premium Experience"}
           </h2>
-          <p className="text-lg text-muted-foreground">
-            {language === "es"
-              ? "Nos destacamos por ofrecer un servicio de calidad excepcional que hace de cada viaje una experiencia perfecta."
-              : "We stand out for offering exceptional quality service that makes every trip a perfect experience."}
-          </p>
         </div>
 
         {/* Features + Image Layout */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Left: Image */}
           <div ref={imageRef} className="relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-emerald-500/10">
+            <div className="relative overflow-hidden border border-white/[0.06]">
               <Image
                 src="/images/experience.jpg"
-                alt={
-                  language === "es"
-                    ? "Experiencia de viaje en Perú"
-                    : "Travel experience in Peru"
-                }
+                alt={language === "es" ? "Experiencia VIP en Peru" : "VIP Experience in Peru"}
                 width={640}
                 height={426}
                 className="w-full h-auto object-cover"
@@ -154,20 +135,18 @@ export function Features() {
             </div>
             {/* Floating Stats Card */}
             <motion.div
-              className="absolute -bottom-6 -right-4 sm:right-4 bg-background rounded-2xl p-4 shadow-xl border border-border"
+              className="absolute -bottom-6 -right-4 sm:right-4 bg-[#121212] p-4 shadow-xl border border-white/[0.06]"
               whileHover={{ y: -4 }}
               transition={{ duration: 0.3 }}
             >
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-500/20 flex items-center justify-center">
-                  <Star className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                <div className="w-12 h-12 border border-gold-base/30 flex items-center justify-center">
+                  <Star className="w-6 h-6 text-gold-base" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold">4.9/5</div>
-                  <div className="text-xs text-muted-foreground">
-                    {language === "es"
-                      ? "2,000+ reseñas"
-                      : "2,000+ reviews"}
+                  <div className="text-2xl font-bold text-gold-base font-vip tracking-wider">4.9/5</div>
+                  <div className="text-[10px] font-mono tracking-wider text-zinc-500 uppercase">
+                    {language === "es" ? "2,000+ resenas" : "2,000+ reviews"}
                   </div>
                 </div>
               </div>
@@ -175,20 +154,20 @@ export function Features() {
           </div>
 
           {/* Right: Features Grid */}
-          <div ref={featuresRef} className="grid gap-5">
+          <div ref={featuresRef} className="grid gap-4">
             {features.map((feature) => {
               const Icon = iconMap[feature.icon] || Star;
               return (
                 <motion.div
                   key={feature.icon}
-                  className="feature-item group flex gap-4 p-5 rounded-2xl bg-card border border-border hover:border-emerald-500/20 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-300"
+                  className="feature-item group flex gap-4 p-5 bg-card border border-border hover:border-gold-dark/20 transition-all duration-300"
                   whileHover={{ x: 4 }}
                 >
-                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-500/20 flex items-center justify-center group-hover:bg-emerald-200 dark:group-hover:bg-emerald-500/30 transition-colors">
-                    <Icon className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                  <div className="flex-shrink-0 w-12 h-12 border border-gold-base/20 flex items-center justify-center group-hover:border-gold-base/40 transition-colors">
+                    <Icon className="w-5 h-5 text-gold-base" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg mb-1">
+                    <h3 className="font-vip tracking-wider text-sm font-bold mb-1 uppercase">
                       {t(feature.title)}
                     </h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
@@ -268,72 +247,63 @@ export function Testimonials() {
     <section
       id="experiencias"
       ref={sectionRef}
-      className="relative py-20 sm:py-28 lg:py-36 bg-background"
+      className="relative py-16 sm:py-20 lg:py-28 bg-background"
     >
-      <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/5 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
+      {/* Gold divider */}
+      <div className="divider-gold max-w-7xl mx-auto mb-16" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
-        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-16">
-          <Badge
-            variant="outline"
-            className="mb-4 px-4 py-1.5 text-sm border-emerald-500/30 text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10"
-          >
-            {language === "es"
-              ? "💬 Testimonios"
-              : "💬 Testimonials"}
-          </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 tracking-tight">
+        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-14">
+          <span className="inline-block text-[11px] font-mono tracking-[0.3em] text-gold-base uppercase mb-4">
+            {language === "es" ? "Testimonios" : "Testimonials"}
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-vip tracking-wider text-foreground uppercase">
             {language === "es"
               ? "Lo Que Dicen Nuestros Viajeros"
               : "What Our Travelers Say"}
           </h2>
-          <p className="text-lg text-muted-foreground">
-            {language === "es"
-              ? "Miles de viajeros confían en nosotros para hacer realidad sus sueños de explorar Perú."
-              : "Thousands of travelers trust us to make their dreams of exploring Peru come true."}
-          </p>
         </div>
 
-        {/* Testimonials Grid - Mobile First: 1 / 2 / 3 columns */}
+        {/* Testimonials Grid - 1/2/3 */}
         <div
           ref={cardsRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6"
         >
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
-              className="testimonial-card group relative p-6 sm:p-8 rounded-2xl bg-card border border-border hover:border-emerald-500/20 hover:shadow-xl hover:shadow-emerald-500/5 transition-all duration-500"
-              whileHover={{ y: -4 }}
+              className="testimonial-card group p-6 bg-card border border-border hover:border-gold-dark/20 transition-all duration-500"
+              whileHover={{ y: -3 }}
             >
-              {/* Quote Icon */}
-              <Quote className="w-10 h-10 text-emerald-500/20 mb-4" />
+              {/* Gold quote mark */}
+              <span className="block text-3xl text-gold-base/30 font-serif leading-none mb-4 select-none">&ldquo;</span>
 
               {/* Stars */}
               <div className="flex gap-1 mb-4">
                 {Array.from({ length: testimonial.rating }).map((_, i) => (
                   <Star
                     key={i}
-                    className="w-4 h-4 text-amber-400 fill-amber-400"
+                    className="w-3.5 h-3.5 text-gold-base"
                   />
                 ))}
               </div>
 
               {/* Text */}
-              <p className="text-foreground/90 mb-6 leading-relaxed italic">
+              <p className="text-foreground/80 text-sm mb-6 leading-relaxed italic">
                 &ldquo;{t(testimonial.text)}&rdquo;
               </p>
 
               {/* Author */}
               <div className="flex items-center gap-3 pt-4 border-t border-border">
-                <div className="w-11 h-11 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-emerald-500/20">
+                <div className="w-10 h-10 bg-gold-base/10 border border-gold-base/20 flex items-center justify-center text-gold-base font-bold text-xs font-vip tracking-wider">
                   {testimonial.avatar}
                 </div>
                 <div>
                   <div className="font-semibold text-sm">
                     {testimonial.name}
                   </div>
-                  <div className="text-xs text-muted-foreground">
+                  <div className="text-[10px] font-mono tracking-wider text-muted-foreground uppercase">
                     {t(testimonial.location)}
                   </div>
                 </div>
@@ -351,18 +321,17 @@ export function Testimonials() {
           <motion.a
             href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
               language === "es"
-                ? "¡Hola! 🌎 Me gustaría ver testimonios de más viajeros y conocer sus paquetes turísticos."
-                : "Hello! 🌎 I would like to see more traveler testimonials and learn about your tour packages."
+                ? "Hola! Me gustaria ver testimonios de mas viajeros y conocer sus paquetes turisticos."
+                : "Hello! I would like to see more traveler testimonials and learn about your tour packages."
             )}`}
             target="_blank"
             rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 h-12 bg-gradient-to-r from-gold-dark via-gold-base to-gold-light px-8 text-[12px] font-mono font-bold tracking-[0.2em] text-zinc-950 shadow-lg shadow-gold-dark/20"
           >
-            <motion.div className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-xl shadow-emerald-600/25 transition-colors">
-              <MessageCircle className="w-5 h-5" />
-              {language === "es"
-                ? "Escríbenos por WhatsApp"
-                : "Write us on WhatsApp"}
-            </motion.div>
+            <MessageCircle className="w-4 h-4" />
+            {language === "es"
+              ? "Escrbenos por WhatsApp"
+              : "Write us on WhatsApp"}
           </motion.a>
         </motion.div>
       </div>
