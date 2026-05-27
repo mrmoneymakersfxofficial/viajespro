@@ -15,9 +15,6 @@ import {
   Quote,
 } from "lucide-react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const iconMap: Record<string, React.ElementType> = {
   "shield-check": ShieldCheck,
@@ -34,63 +31,74 @@ export function Features() {
   const imageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
+    if (typeof window === "undefined") return;
+    let cancelled = false;
 
-    gsap.fromTo(
-      titleRef.current,
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: titleRef.current,
-          start: "top 85%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
+    (async () => {
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      if (cancelled) return;
+      gsap.registerPlugin(ScrollTrigger);
 
-    if (imageRef.current) {
+      if (!sectionRef.current) return;
+
       gsap.fromTo(
-        imageRef.current,
-        { opacity: 0, x: -60, scale: 0.9 },
+        titleRef.current,
+        { opacity: 0, y: 50 },
         {
           opacity: 1,
-          x: 0,
-          scale: 1,
-          duration: 1,
+          y: 0,
+          duration: 0.8,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: imageRef.current,
+            trigger: titleRef.current,
             start: "top 85%",
             toggleActions: "play none none none",
           },
         }
       );
-    }
 
-    if (featuresRef.current) {
-      const items = featuresRef.current.querySelectorAll(".feature-item");
-      gsap.fromTo(
-        items,
-        { opacity: 0, y: 40, x: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          x: 0,
-          duration: 0.7,
-          stagger: 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: featuresRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    }
+      if (imageRef.current) {
+        gsap.fromTo(
+          imageRef.current,
+          { opacity: 0, x: -60, scale: 0.9 },
+          {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: imageRef.current,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+
+      if (featuresRef.current) {
+        const items = featuresRef.current.querySelectorAll(".feature-item");
+        gsap.fromTo(
+          items,
+          { opacity: 0, y: 40, x: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            x: 0,
+            duration: 0.7,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: featuresRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+    })();
+
+    return () => { cancelled = true; };
   }, []);
 
   return (
@@ -206,43 +214,54 @@ export function Testimonials() {
   const cardsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
+    if (typeof window === "undefined") return;
+    let cancelled = false;
 
-    gsap.fromTo(
-      titleRef.current,
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: titleRef.current,
-          start: "top 85%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
+    (async () => {
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      if (cancelled) return;
+      gsap.registerPlugin(ScrollTrigger);
 
-    if (cardsRef.current) {
-      const cards = cardsRef.current.querySelectorAll(".testimonial-card");
+      if (!sectionRef.current) return;
+
       gsap.fromTo(
-        cards,
-        { opacity: 0, y: 60 },
+        titleRef.current,
+        { opacity: 0, y: 50 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.7,
-          stagger: 0.15,
+          duration: 0.8,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: cardsRef.current,
-            start: "top 80%",
+            trigger: titleRef.current,
+            start: "top 85%",
             toggleActions: "play none none none",
           },
         }
       );
-    }
+
+      if (cardsRef.current) {
+        const cards = cardsRef.current.querySelectorAll(".testimonial-card");
+        gsap.fromTo(
+          cards,
+          { opacity: 0, y: 60 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: cardsRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+    })();
+
+    return () => { cancelled = true; };
   }, []);
 
   return (

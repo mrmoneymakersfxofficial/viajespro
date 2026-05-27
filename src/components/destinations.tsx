@@ -9,9 +9,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, MapPin, Clock, Star, ArrowRight } from "lucide-react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function Destinations() {
   const { t, language } = useLanguage();
@@ -21,46 +18,57 @@ export function Destinations() {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   useEffect(() => {
-    if (!sectionRef.current || !titleRef.current) return;
+    if (typeof window === "undefined") return;
+    let cancelled = false;
 
-    // GSAP title animation on scroll
-    gsap.fromTo(
-      titleRef.current,
-      { opacity: 0, y: 60 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: titleRef.current,
-          start: "top 85%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
+    (async () => {
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      if (cancelled) return;
+      gsap.registerPlugin(ScrollTrigger);
 
-    // Staggered card reveal
-    if (gridRef.current) {
-      const cards = gridRef.current.querySelectorAll(".destination-card");
+      if (!sectionRef.current || !titleRef.current) return;
+
+      // GSAP title animation on scroll
       gsap.fromTo(
-        cards,
-        { opacity: 0, y: 80, scale: 0.95 },
+        titleRef.current,
+        { opacity: 0, y: 60 },
         {
           opacity: 1,
           y: 0,
-          scale: 1,
-          duration: 0.8,
-          stagger: 0.12,
+          duration: 1,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: gridRef.current,
-            start: "top 80%",
+            trigger: titleRef.current,
+            start: "top 85%",
             toggleActions: "play none none none",
           },
         }
       );
-    }
+
+      // Staggered card reveal
+      if (gridRef.current) {
+        const cards = gridRef.current.querySelectorAll(".destination-card");
+        gsap.fromTo(
+          cards,
+          { opacity: 0, y: 80, scale: 0.95 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            stagger: 0.12,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: gridRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+    })();
+
+    return () => { cancelled = true; };
   }, []);
 
   const getWhatsAppUrl = (destId: string) => {

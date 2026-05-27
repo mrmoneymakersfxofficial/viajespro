@@ -16,9 +16,6 @@ import {
   Instagram,
 } from "lucide-react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 // ─── About Section ─────────────────────────────────────────
 
@@ -28,23 +25,34 @@ export function About() {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
+    if (typeof window === "undefined") return;
+    let cancelled = false;
 
-    gsap.fromTo(
-      contentRef.current,
-      { opacity: 0, y: 60 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: contentRef.current,
-          start: "top 85%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
+    (async () => {
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      if (cancelled) return;
+      gsap.registerPlugin(ScrollTrigger);
+
+      if (!sectionRef.current) return;
+
+      gsap.fromTo(
+        contentRef.current,
+        { opacity: 0, y: 60 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: contentRef.current,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    })();
+
+    return () => { cancelled = true; };
   }, []);
 
   return (
@@ -87,23 +95,34 @@ export function Contact() {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
+    if (typeof window === "undefined") return;
+    let cancelled = false;
 
-    gsap.fromTo(
-      contentRef.current,
-      { opacity: 0, y: 60 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: contentRef.current,
-          start: "top 85%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
+    (async () => {
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      if (cancelled) return;
+      gsap.registerPlugin(ScrollTrigger);
+
+      if (!sectionRef.current) return;
+
+      gsap.fromTo(
+        contentRef.current,
+        { opacity: 0, y: 60 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: contentRef.current,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    })();
+
+    return () => { cancelled = true; };
   }, []);
 
   const whatsappGeneral = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
@@ -203,7 +222,7 @@ export function Contact() {
                   : "Main office in Peru"}
               </p>
               <span className="text-cyan-600 dark:text-cyan-400 font-semibold text-sm">
-                Perú 🇵🇪
+                Perú
               </span>
             </motion.div>
           </div>
@@ -316,7 +335,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2 text-sm text-background/60">
                 <MapPin className="w-4 h-4 text-emerald-400" />
-                Perú
+                Per&uacute;
               </li>
             </ul>
           </div>
@@ -331,7 +350,7 @@ export function Footer() {
             rel="noopener noreferrer"
             className="text-xs text-background/50 hover:text-emerald-400 transition-colors group"
           >
-            {language === "es" ? "Diseño y desarrollo por" : "Design and development by"}{" "}
+            {language === "es" ? "Dise&ntilde;o y desarrollo por" : "Design and development by"}{" "}
             <span className="font-semibold text-emerald-400 group-hover:text-emerald-300 transition-colors">
               {siteConfig.provider.name}
             </span>
