@@ -34,7 +34,7 @@ export function About() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-14 sm:py-20 bg-background overflow-hidden">
+    <section id="sobre-nosotros" ref={sectionRef} className="relative py-14 sm:py-20 bg-background overflow-hidden">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={contentRef} className="text-center">
           <span className="inline-block text-[10px] sm:text-[11px] font-mono tracking-[0.3em] text-gold-base uppercase mb-3 sm:mb-4">

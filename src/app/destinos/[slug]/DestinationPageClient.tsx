@@ -23,6 +23,7 @@ import {
   Heart,
 } from "lucide-react";
 import gsap from "gsap";
+import { useScrollSpy } from "@/hooks/use-scroll-spy";
 
 type Destination = (typeof destinations)[0];
 
@@ -168,6 +169,8 @@ export default function DestinationPageClient({ dest }: { dest: Destination }) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const pageRef = useRef<HTMLDivElement>(null);
 
+  useScrollSpy(["inicio", "contenido", "galeria", "itinerario", "reservar"]);
+
   const t = (item: { es: string; en: string }) => item[language];
   const tArr = (item: { es: string[]; en: string[] }) => item[language];
 
@@ -224,7 +227,7 @@ export default function DestinationPageClient({ dest }: { dest: Destination }) {
   return (
     <div ref={pageRef}>
       {/* Hero Image */}
-      <section className="relative w-full h-[50vh] sm:h-[60vh] lg:h-[70vh] overflow-hidden">
+      <section id="inicio" className="relative w-full h-[50vh] sm:h-[60vh] lg:h-[70vh] overflow-hidden">
         <Image
           src={dest.image}
           alt={t(dest.title)}
@@ -273,7 +276,7 @@ export default function DestinationPageClient({ dest }: { dest: Destination }) {
       </section>
 
       {/* Main Content */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+      <section id="contenido" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
         <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Left */}
           <div className="lg:col-span-2 space-y-10">
@@ -300,7 +303,7 @@ export default function DestinationPageClient({ dest }: { dest: Destination }) {
             </div>
 
             {/* Gallery */}
-            <div className="animate-in">
+            <div id="galeria" className="animate-in">
               <span className="inline-block text-[11px] font-mono tracking-[0.3em] text-gold-base uppercase mb-3">
                 {language === "es" ? "Galeria" : "Gallery"}
               </span>
@@ -326,7 +329,7 @@ export default function DestinationPageClient({ dest }: { dest: Destination }) {
             </div>
 
             {/* Itinerary */}
-            <div className="animate-in">
+            <div id="itinerario" className="animate-in">
               <span className="inline-block text-[11px] font-mono tracking-[0.3em] text-gold-base uppercase mb-3">
                 {language === "es" ? "Itinerario sugerido" : "Suggested itinerary"}
               </span>
@@ -366,7 +369,7 @@ export default function DestinationPageClient({ dest }: { dest: Destination }) {
 
           {/* Right Sidebar */}
           <div className="lg:col-span-1">
-            <div className="animate-in sticky top-24 space-y-4">
+            <div id="reservar" className="animate-in sticky top-24 space-y-4">
               {/* Price Card */}
               <div className="border border-border bg-card p-6">
                 <div className="mb-5 flex items-start justify-between">
